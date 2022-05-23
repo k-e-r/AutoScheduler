@@ -7,6 +7,10 @@ const planSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    mode: {
+      type: Boolean,
+      default: false,
+    },
     completed: {
       type: Boolean,
       default: false,
