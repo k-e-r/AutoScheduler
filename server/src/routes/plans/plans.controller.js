@@ -35,7 +35,26 @@ const getPlans = (req, res) => {
     });
 };
 
+const getPlan = (req, res) => {
+  const planId = req.params.id;
+
+  Plan.findById(planId)
+    .then((plan) => {
+      res.status(200).json({
+        msg: 'find plan succeeded',
+        plan,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        msg: 'plan not found',
+        err,
+      });
+    });
+};
+
 module.exports = {
   setPlan,
   getPlans,
+  getPlan,
 };
