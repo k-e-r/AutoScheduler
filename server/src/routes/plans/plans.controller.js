@@ -84,9 +84,35 @@ const editPlan = (req, res) => {
   }
 };
 
+const deletePlan = (req, res) => {
+  const planId = req.params.id;
+
+  try {
+    Plan.findByIdAndDelete(planId, (err, docs) => {
+      if (err) {
+        res.status(404).json({
+          msg: 'plan not found',
+          err,
+        });
+      } else {
+        res.status(200).json({
+          msg: 'delete plan succeeded',
+          plan: docs,
+        });
+      }
+    });
+  } catch (err) {
+    res.status(500).json({
+      msg: 'delete failed',
+      err,
+    });
+  }
+};
+
 module.exports = {
   setPlan,
   getPlans,
   getPlan,
   editPlan,
+  deletePlan,
 };
