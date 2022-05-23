@@ -53,8 +53,40 @@ const getPlan = (req, res) => {
     });
 };
 
+const editPlan = (req, res) => {
+  const planId = req.params.id;
+
+  try {
+    Plan.findByIdAndUpdate(
+      planId,
+      {
+        $set: req.body,
+      },
+      (err, docs) => {
+        if (err) {
+          res.status(404).json({
+            msg: 'plan not found',
+            err,
+          });
+        } else {
+          res.status(200).json({
+            msg: 'update plan succeeded',
+            plan: docs,
+          });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json({
+      msg: 'update failed',
+      err,
+    });
+  }
+};
+
 module.exports = {
   setPlan,
   getPlans,
   getPlan,
+  editPlan,
 };
