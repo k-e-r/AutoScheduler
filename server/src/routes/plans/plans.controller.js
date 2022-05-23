@@ -6,12 +6,17 @@ const setPlan = (req, res) => {
   plan
     .save()
     .then(() => {
-      res.status(201).send(plan);
+      res.status(201).json({
+        msg: 'set plan succeeded',
+        plan,
+      });
     })
     .catch((err) => {
-      res.status(400).send(err);
+      res.status(400).json({
+        msg: 'set plan failed',
+        err,
+      });
     });
-  // return res.status(200).json('set succeeded');
 };
 
 module.exports = {
