@@ -1,15 +1,20 @@
 const mongoose = require('mongoose');
 
-const Plan = mongoose.model('Plan', {
-  description: {
-    type: String,
-    required: true,
-    trim: true,
+const planSchema = new mongoose.Schema(
+  {
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    completed: {
+      type: Boolean,
+      default: false,
+    },
   },
-  completed: {
-    type: Boolean,
-    default: false,
-  },
-});
+  { timestamps: true }
+);
+
+const Plan = mongoose.model('Plan', planSchema);
 
 module.exports = Plan;

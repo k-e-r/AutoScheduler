@@ -3,6 +3,6 @@ const { setPlan } = require('./plans.controller');
 
 const plansRouter = express.Router();
 
-plansRouter.get('/', setPlan);
+plansRouter.post('/', setPlan);
 
 module.exports = plansRouter;

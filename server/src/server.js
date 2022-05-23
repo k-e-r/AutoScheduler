@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 require('./db/mongoose');
-const Plan = require('./models/plan');
 
 const plansRouter = require('./routes/plans/plans.router');
 
