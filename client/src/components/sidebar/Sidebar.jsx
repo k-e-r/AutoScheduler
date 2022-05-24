@@ -1,5 +1,49 @@
-const Sidebar = () => {
-  return <>Sidebar</>;
+import './Sidebar.scss';
+import { Dashboard, CalendarEvent } from 'tabler-icons-react';
+
+const Sidebar = ({ open, onSidebarClose }) => {
+  return (
+    <aside className='sidebar'>
+      <div
+        className={`sidebar__back ${
+          open ? 'sidebar__backActive' : 'sidebar__backPassive'
+        }`}
+        onClick={onSidebarClose}
+      />
+      <div
+        className={`sidebar__menu ${
+          open ? 'sidebar__menuActive' : 'sidebar__menuPassive'
+        }`}
+      >
+        <div>
+          <h1 className='sidebar__logo'>LOGO</h1>
+        </div>
+        <div className='sidebar__wrapper'>
+          <span className='sidebar__wrapper-title'>Dashboard</span>
+          <a href='#' className='sidebar__wrapper-menu'>
+            <Dashboard
+              size={25}
+              strokeWidth={1.2}
+              className='sidebar__wrapper-menu-icon'
+            />
+            <p>Dashboard</p>
+          </a>
+        </div>
+        <hr className='sidebar__hr' />
+        <div className='sidebar__wrapper'>
+          <span className='sidebar__wrapper-title'>Calender</span>
+          <a href='#' className='sidebar__wrapper-menu'>
+            <CalendarEvent
+              size={25}
+              strokeWidth={1.2}
+              className='sidebar__wrapper-menu-icon'
+            />
+            <p>Calender</p>
+          </a>
+        </div>
+      </div>
+    </aside>
+  );
 };
 
 export default Sidebar;
