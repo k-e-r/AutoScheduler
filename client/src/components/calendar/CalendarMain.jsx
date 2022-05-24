@@ -1,32 +1,39 @@
 import React from 'react';
+import { useState } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'tabler-icons-react';
 import './CalendarMain.scss';
 
+const monthsStr = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
+const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
 const CalendarMain = () => {
+  const [baseDate, setBaseDate] = useState(new Date(2022, 5 - 1, 1));
   const showMonth = [];
-  const monthsStr = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-  const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-  const today = new Date(2022, 5 - 1, 1);
-  const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
-  today.setDate(1);
-  const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
-  if (today.getDay() !== 0) {
-    [...Array(today.getDay())].map((x, idx) => {
-      showMonth.push(prevMonth.getDate() - (today.getDay() - idx - 1));
+  const endOfMonth = new Date(
+    baseDate.getFullYear(),
+    baseDate.getMonth() + 1,
+    0
+  );
+  baseDate.setDate(1);
+  const prevMonth = new Date(baseDate.getFullYear(), baseDate.getMonth(), 0);
+  if (baseDate.getDay() !== 0) {
+    [...Array(baseDate.getDay())].map((x, idx) => {
+      showMonth.push(prevMonth.getDate() - (baseDate.getDay() - idx - 1));
     });
   }
   [...Array(endOfMonth.getDate())].map((x, idx) => {
@@ -35,20 +42,46 @@ const CalendarMain = () => {
   [...Array(42 - showMonth.length)].map((x, idx) => {
     showMonth.push(idx + 1);
   });
-  console.log('showMonth', showMonth);
+  // console.log('showMonth', showMonth);
+
+  const changePrevMonth = () => {
+    setBaseDate((prev) => {
+      if (prev.getMonth() === 0) {
+        return new Date(prev.getFullYear() - 1, 12 - 1, 1);
+      } else {
+        return new Date(prev.getFullYear(), baseDate.getMonth() - 1, 1);
+      }
+    });
+  };
+
+  const changeNextMonth = () => {
+    setBaseDate((prev) => {
+      if (prev.getMonth() === 12) {
+        return new Date(prev.getFullYear() + 1, 1 - 1, 1);
+      } else {
+        return new Date(prev.getFullYear(), baseDate.getMonth() + 1, 1);
+      }
+    });
+  };
+
+  const changeToday = () => {
+    setBaseDate(new Date());
+  };
 
   return (
     <div className='calendar__card'>
       <div className='calendar__header'>
-        <button>
+        <button onClick={changePrevMonth}>
           <ChevronLeft
             size={25}
             strokeWidth={1.2}
             className='calendar__chevron'
           />
         </button>
-        <div className='calendar__month'>{monthsStr[today.getMonth()]}</div>
-        <button>
+        <div className='calendar__month' onClick={changeToday}>
+          {monthsStr[baseDate.getMonth()]} {baseDate.getFullYear()}
+        </div>
+        <button onClick={changeNextMonth}>
           <ChevronRight
             size={25}
             strokeWidth={1.2}
