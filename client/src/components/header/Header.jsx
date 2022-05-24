@@ -1,6 +1,5 @@
 import './Header.scss';
-import { Menu2 } from 'tabler-icons-react';
-import { Settings } from 'tabler-icons-react';
+import { Menu2, Settings } from 'tabler-icons-react';
 
 const Header = ({ onSidebarOpen }) => {
   return (
