@@ -1,0 +1,70 @@
+.header {
+  border: solid 1px grey;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  justify-content: space-between;
+
+  &__left-items {
+    display: flex;
+    align-items: center;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background-color: rgb(237, 231, 246);
+      cursor: pointer;
+      border-radius: 30%;
+      width: 35px;
+      height: 35px;
+      transition: all 0.3s ease-in-out;
+
+      .header__menubar {
+        color: rgb(94, 53, 177);
+        transition: all 0.3s ease-in-out;
+      }
+
+      &:hover {
+        background-color: rgb(94, 53, 177);
+
+        .header__menubar {
+          color: rgb(237, 231, 246);
+        }
+      }
+    }
+  }
+
+  &__right-items {
+    display: flex;
+    align-items: center;
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background-color: rgb(227, 242, 253);
+      cursor: pointer;
+      border-radius: 30%;
+      width: 35px;
+      height: 35px;
+      transition: all 0.3s ease-in-out;
+
+      .header__settings {
+        color: rgb(33, 150, 243);
+        transition: all 0.3s ease-in-out;
+      }
+
+      &:hover {
+        background-color: rgb(33, 150, 243);
+
+        .header__settings {
+          color: rgb(255, 255, 255);
+        }
+      }
+    }
+  }
+}
