@@ -3,6 +3,11 @@
     border: 0.2px solid rgb(136, 136, 136);
     width: calc(100% / 7);
     min-height: 4rem;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(255, 248, 225);
+    }
 
     p {
       font-size: 0.8rem;

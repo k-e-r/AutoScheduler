@@ -10,8 +10,24 @@ const CalendarDayBox = ({ baseDate, day, idx }) => {
       markFlg = true;
     }
   }
+
+  const addPlan = (baseDate, day, idx) => {
+    if (Math.abs(day - idx) > 5) {
+      if (idx < 6) {
+        console.log(baseDate.getFullYear(), baseDate.getMonth(), day);
+      } else {
+        console.log(baseDate.getFullYear(), baseDate.getMonth() + 2, day);
+      }
+    } else {
+      console.log(baseDate.getFullYear(), baseDate.getMonth() + 1, day);
+    }
+  };
+
   return (
-    <div className='weekly__datebody'>
+    <div
+      className='weekly__datebody'
+      onClick={() => addPlan(baseDate, day, idx)}
+    >
       <p
         className={`${Math.abs(day - idx) > 5 ? 'dayGrey ' : ''} ${
           day === today && markFlg ? 'today' : ''
