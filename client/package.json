@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@fullcalendar/daygrid": "^5.11.0",
-    "@fullcalendar/interaction": "^5.11.0",
-    "@fullcalendar/react": "^5.11.1",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",

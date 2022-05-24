@@ -1,8 +1,17 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './CalendarDayBox.scss';
 
+import { planDateActions } from '../../../store/planDate-slice';
+
 const CalendarDayBox = ({ baseDate, day, idx }) => {
+  const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(authActions.loginCheck());
+  // }, []);
+  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   const today = new Date().getDate();
   let markFlg = false;
   if (baseDate.getMonth() === new Date().getMonth()) {
@@ -12,14 +21,15 @@ const CalendarDayBox = ({ baseDate, day, idx }) => {
   }
 
   const addPlan = (baseDate, day, idx) => {
+    const setDate = new Date(baseDate.getFullYear(), baseDate.getMonth(), day);
     if (Math.abs(day - idx) > 5) {
       if (idx < 6) {
-        console.log(baseDate.getFullYear(), baseDate.getMonth(), day);
+        dispatch(planDateActions.setPlan(setDate.toString()));
       } else {
-        console.log(baseDate.getFullYear(), baseDate.getMonth() + 2, day);
+        dispatch(planDateActions.setPlan(setDate.toString()));
       }
     } else {
-      console.log(baseDate.getFullYear(), baseDate.getMonth() + 1, day);
+      dispatch(planDateActions.setPlan(setDate.toString()));
     }
   };
 
