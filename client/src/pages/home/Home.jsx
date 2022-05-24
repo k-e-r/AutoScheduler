@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Calendar from '../../components/calendar/Calendar';
 import Header from '../../components/header/Header';
 import Sidebar from '../../components/sidebar/Sidebar';
 
@@ -14,6 +15,7 @@ const Home = () => {
         onSidebarClose={() => setSidebarOpen(false)}
         open={isSidebarOpen}
       />
+      <Calendar />
     </div>
   );
 };
