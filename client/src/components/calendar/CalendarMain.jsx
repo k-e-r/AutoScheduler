@@ -102,6 +102,7 @@ const CalendarMain = () => {
           <div className='weekly__body' key={week}>
             {[...Array(7)].map((x, idx) => (
               <CalendarDayBox
+                baseDate={baseDate}
                 day={showMonth[idx + week * 7]}
                 idx={idx + week * 7}
                 key={idx + week * 7}
