@@ -3,7 +3,7 @@ import React from 'react';
 import './CalendarSideMenu.scss';
 
 const CalendarSideMenu = () => {
-  return <div>CalendarSideMenu</div>;
+  return <div className='cal__sidemenu__card'>alendarSideMenu</div>;
 };
 
 export default CalendarSideMenu;
