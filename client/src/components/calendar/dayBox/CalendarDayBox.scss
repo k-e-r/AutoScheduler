@@ -1,0 +1,28 @@
+.weekly {
+  &__datebody {
+    border: 0.2px solid rgb(136, 136, 136);
+    width: calc(100% / 7);
+    min-height: 4rem;
+
+    p {
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+      margin-right: 0.2rem;
+      display: inline-block;
+      width: max-content;
+      min-width: 1.3rem;
+      min-height: 1.3rem;
+      line-height: 1.3rem;
+      text-align: center;
+    }
+  }
+}
+
+.dayGrey {
+  color: rgb(164, 164, 164);
+}
+
+.today {
+  background-color: rgb(255, 193, 7);
+  border-radius: 50%;
+}

@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'tabler-icons-react';
 import './CalendarMain.scss';
+import CalendarDayBox from './dayBox/CalendarDayBox';
 
 const monthsStr = [
   'January',
@@ -100,9 +101,11 @@ const CalendarMain = () => {
         {[...Array(6)].map((x, week) => (
           <div className='weekly__body' key={week}>
             {[...Array(7)].map((x, idx) => (
-              <div className='weekly__datebody' key={idx + week * 7}>
-                <p>{showMonth[idx + week * 7]}</p>
-              </div>
+              <CalendarDayBox
+                day={showMonth[idx + week * 7]}
+                idx={idx + week * 7}
+                key={idx + week * 7}
+              />
             ))}
           </div>
         ))}
