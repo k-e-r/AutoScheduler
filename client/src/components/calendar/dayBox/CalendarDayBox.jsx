@@ -66,12 +66,7 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
       >
         {day}
       </p>
-      <CalendarPlanBox
-        baseDate={baseDate}
-        day={day}
-        showMonth={showMonth}
-        idx={idx}
-      />
+      <CalendarPlanBox baseDate={baseDate} showMonth={showMonth} idx={idx} />
     </div>
   );
 };

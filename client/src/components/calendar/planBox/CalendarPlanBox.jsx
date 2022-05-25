@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import './CalendarPlanBox.scss';
 
-const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
+const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
   const statePlanInfo = useSelector((state) => state.planInfo.planInfo);
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
   const [calendarPlans, setCalendarPlans] = useState([]);
@@ -44,14 +44,10 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
 
   useEffect(() => {
     setPlanInfo(statePlanInfo);
+    setCategoryColor(stateCategoryColor);
     setCalendarPlan([]);
     setCalendarPlans([]);
-  }, [statePlanInfo]);
-
-  useEffect(() => {
-    setCategoryColor(stateCategoryColor);
-    setPlanInfo(statePlanInfo);
-  }, [stateCategoryColor]);
+  }, [statePlanInfo, stateCategoryColor]);
 
   useEffect(() => {
     setPlan();
