@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { planDateActions } from '../../../store/planDate-slice';
 
@@ -6,7 +6,14 @@ import './CalendarDayBox.scss';
 
 import CalendarPlanBox from '../planBox/CalendarPlanBox';
 
-const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
+const CalendarDayBox = ({
+  baseDate,
+  day,
+  idx,
+  showMonth,
+  changeColorIdx,
+  colorIdx,
+}) => {
   const dispatch = useDispatch();
   let clickCount = 0;
 
@@ -19,40 +26,34 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
   }
 
   const setPlanDate = () => {
+    let setDate;
     if (Math.abs(day - idx) > 5) {
       if (idx < 6) {
         if (baseDate.getMonth() === 0) {
-          const setDate = new Date(baseDate.getFullYear() - 1, 12, day);
-          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
+          setDate = new Date(baseDate.getFullYear() - 1, 12, day);
         } else {
-          const setDate = new Date(
+          setDate = new Date(
             baseDate.getFullYear(),
             baseDate.getMonth() - 1,
             day
           );
-          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
         }
       } else {
         if (baseDate.getMonth() === 11) {
-          const setDate = new Date(baseDate.getFullYear() + 1, 1, day);
-          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
+          setDate = new Date(baseDate.getFullYear() + 1, 1, day);
         } else {
-          const setDate = new Date(
+          setDate = new Date(
             baseDate.getFullYear(),
             baseDate.getMonth() + 1,
             day
           );
-          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
         }
       }
     } else {
-      const setDate = new Date(
-        baseDate.getFullYear(),
-        baseDate.getMonth(),
-        day
-      );
-      dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
+      setDate = new Date(baseDate.getFullYear(), baseDate.getMonth(), day);
     }
+    dispatch(planDateActions.setPlan({ planDate: setDate.toISOString() }));
+    changeColorIdx(idx);
   };
 
   const addPlan = () => {
@@ -79,6 +80,7 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
   return (
     <div
       className='weekly__datebody'
+      style={{ backgroundColor: colorIdx === idx && 'rgb(255, 248, 225)' }}
       onClick={(e) => handleSingleOrDoubleClick(e)}
     >
       <p

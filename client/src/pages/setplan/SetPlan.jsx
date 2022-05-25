@@ -12,13 +12,11 @@ const SetPlan = () => {
   const statePlanDateStr = useSelector((state) => state.planDate.planDate);
   const [planDate, setPlanDate] = useState(statePlanDateStr);
   const categoryList = useSelector((state) => state.categoryList.categoryList);
-  let statePlanDate = new Date(planDate);
-  let theDay = statePlanDate.toISOString().split('T')[0];
+  let theDay = planDate.split('T')[0];
 
   useEffect(() => {
     setPlanDate(() => {
-      statePlanDate = new Date(statePlanDateStr);
-      theDay = statePlanDate.toISOString().split('T')[0];
+      theDay = statePlanDateStr.split('T')[0];
       return statePlanDateStr;
     });
   }, [statePlanDateStr]);

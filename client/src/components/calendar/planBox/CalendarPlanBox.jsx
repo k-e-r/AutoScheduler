@@ -80,18 +80,12 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
     });
   };
 
-  const planDetail = () => {
-    console.log('click');
-  };
-
   return (
     <div className='planbox__wrapper'>
       {calendarPlan.map((plan, idx) => (
         <div className='planbox__plan-wrapper' key={idx}>
           <span style={{ backgroundColor: plan.category }}></span>
-          <p className='planbox__plan' onClick={planDetail}>
-            {plan.desc}
-          </p>
+          <p className='planbox__plan'>{plan.desc}</p>
         </div>
       ))}
       {/* {plan ? (

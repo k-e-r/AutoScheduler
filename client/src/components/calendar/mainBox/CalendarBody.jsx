@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { planInfoActions } from '../../../store/planInfo-slice';
 import { searchDateActions } from '../../../store/searchDate-slice';
@@ -13,6 +13,11 @@ const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const CalendarBody = ({ baseDate, showMonth }) => {
   const dispatch = useDispatch();
+  const [colorIdx, setColorIdx] = useState(new Date().getDate() - 1);
+
+  const changeColorIdx = (idx) => {
+    setColorIdx(idx);
+  };
 
   const getPlans = async () => {
     let startDate, endDate;
@@ -91,6 +96,8 @@ const CalendarBody = ({ baseDate, showMonth }) => {
               day={showMonth[idx + week * 7]}
               idx={idx + week * 7}
               showMonth={showMonth}
+              changeColorIdx={changeColorIdx}
+              colorIdx={colorIdx}
               key={idx + week * 7}
             />
           ))}

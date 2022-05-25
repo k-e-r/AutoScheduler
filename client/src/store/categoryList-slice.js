@@ -9,7 +9,6 @@ const categoryListSlice = createSlice({
   },
   reducers: {
     setCategoryList(state, action) {
-      console.log('list:', action.payload);
       state._id = action.payload._id;
       state.categoryList = action.payload.category;
       state.categoryColorList = action.payload.color;
