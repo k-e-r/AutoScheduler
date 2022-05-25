@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { planInfoActions } from '../../../store/planInfo-slice';
 import { searchDateActions } from '../../../store/searchDate-slice';

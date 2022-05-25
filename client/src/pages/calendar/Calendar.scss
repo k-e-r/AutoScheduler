@@ -1,8 +1,12 @@
-.calendar__wrapper {
-  margin: 1rem;
-  padding: 1rem;
-  background-color: rgb(227, 242, 253);
-  border-radius: 15px;
+.calendar {
+  &__wrapper {
+    margin: 1rem;
+    padding: 1rem;
+    background-color: rgb(227, 242, 253);
+    border-radius: 15px;
+  }
 
-  display: flex;
+  &__mainbody {
+    display: flex;
+  }
 }

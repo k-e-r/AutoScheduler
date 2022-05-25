@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import './PlanCard.scss';
+import './SetPlan.scss';
 
 import { planDateActions } from '../../store/planDate-slice';
 import usePlan from '../../hooks/usePlan';
 
-const PlanCard = () => {
+const SetPlan = () => {
   const { submitPlan } = usePlan();
   const dispatch = useDispatch();
   const statePlanDateStr = useSelector((state) => state.planDate.planDate);
@@ -63,4 +63,4 @@ const PlanCard = () => {
   );
 };
 
-export default PlanCard;
+export default SetPlan;

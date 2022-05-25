@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import Home from './pages/home/Home';
 import Calendar from './pages/calendar/Calendar';
-import PlanCard from './pages/plan/PlanCard';
+import SetPlan from './pages/setplan/SetPlan';
 
 const App = () => {
   const statePlanDate = useSelector((state) => state.planDate.planDate);
@@ -17,7 +17,7 @@ const App = () => {
     <>
       <Home />
       <Calendar />
-      {planDate && <PlanCard />}
+      {planDate && <SetPlan />}
     </>
   );
 };
