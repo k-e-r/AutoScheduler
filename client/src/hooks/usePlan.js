@@ -16,12 +16,14 @@ const usePlan = () => {
     const date = prevDate.setHours(prevDate.getHours() + timeOffset);
     // console.log(data.get('plan-date'));
     const description = data.get('description');
+    const category = data.get('category');
     const mode = data.get('mode') === null ? false : data.get('mode');
     const completed =
       data.get('completed') === null ? false : data.get('completed');
     const response = await httpSubmitPlan({
       date,
       description,
+      category,
       mode,
       completed,
     });

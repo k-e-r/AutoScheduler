@@ -25,7 +25,7 @@ const App = () => {
 
   useEffect(() => {
     getCategories();
-  }, [getCategories]);
+  }, []);
 
   return (
     <>

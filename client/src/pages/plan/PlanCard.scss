@@ -54,6 +54,17 @@
       }
     }
 
+    select {
+      border: none;
+      border-bottom: 1px solid rgb(186, 186, 186);
+      padding: 0.5rem;
+      grid-column: 2 / span 2;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
     & button {
       grid-column: 2 / span 1;
       padding: 0.8rem 1rem;
