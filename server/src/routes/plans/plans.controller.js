@@ -61,7 +61,7 @@ const searchPlan = (req, res) => {
     {
       date: {
         $gte: new Date(keyword.start),
-        $lt: new Date(keyword.end),
+        $lte: new Date(keyword.end),
       },
     },
     (err, data) => {

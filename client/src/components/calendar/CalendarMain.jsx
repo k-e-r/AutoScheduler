@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 import { ChevronLeft, ChevronRight } from 'tabler-icons-react';
 import './CalendarMain.scss';
-import CalendarDayBox from './dayBox/CalendarDayBox';
+import CalendarBody from './mainBox/CalendarBody';
 
 const monthsStr = [
   'January',
@@ -20,10 +20,8 @@ const monthsStr = [
   'December',
 ];
 
-const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
 const CalendarMain = () => {
-  const [baseDate, setBaseDate] = useState(new Date(2022, 5 - 1, 1));
+  const [baseDate, setBaseDate] = useState(new Date());
   const showMonth = [];
   const endOfMonth = new Date(
     baseDate.getFullYear(),
@@ -32,18 +30,20 @@ const CalendarMain = () => {
   );
   baseDate.setDate(1);
   const prevMonth = new Date(baseDate.getFullYear(), baseDate.getMonth(), 0);
+  // prev month
   if (baseDate.getDay() !== 0) {
     [...Array(baseDate.getDay())].map((x, idx) => {
       showMonth.push(prevMonth.getDate() - (baseDate.getDay() - idx - 1));
     });
   }
+  // this month
   [...Array(endOfMonth.getDate())].map((x, idx) => {
     showMonth.push(idx + 1);
   });
+  // next month
   [...Array(42 - showMonth.length)].map((x, idx) => {
     showMonth.push(idx + 1);
   });
-  // console.log('showMonth', showMonth);
 
   const changePrevMonth = () => {
     setBaseDate((prev) => {
@@ -90,27 +90,7 @@ const CalendarMain = () => {
           />
         </button>
       </div>
-      <div className='calendar__body'>
-        <div className='weekly__header'>
-          {[...Array(7)].map((x, idx) => (
-            <p className='weekly__dayBody' key={idx}>
-              {dayOfWeekStr[idx]}
-            </p>
-          ))}
-        </div>
-        {[...Array(6)].map((x, week) => (
-          <div className='weekly__body' key={week}>
-            {[...Array(7)].map((x, idx) => (
-              <CalendarDayBox
-                baseDate={baseDate}
-                day={showMonth[idx + week * 7]}
-                idx={idx + week * 7}
-                key={idx + week * 7}
-              />
-            ))}
-          </div>
-        ))}
-      </div>
+      <CalendarBody baseDate={baseDate} showMonth={showMonth} />
     </div>
   );
 };

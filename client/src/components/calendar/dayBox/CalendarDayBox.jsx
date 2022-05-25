@@ -6,7 +6,7 @@ import './CalendarDayBox.scss';
 
 import CalendarPlanBox from '../planBox/CalendarPlanBox';
 
-const CalendarDayBox = ({ baseDate, day, idx }) => {
+const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
   const dispatch = useDispatch();
 
   const today = new Date().getDate();
@@ -42,7 +42,7 @@ const CalendarDayBox = ({ baseDate, day, idx }) => {
       >
         {day}
       </p>
-      <CalendarPlanBox baseDate={baseDate} />
+      <CalendarPlanBox baseDate={baseDate} showMonth={showMonth} />
     </div>
   );
 };

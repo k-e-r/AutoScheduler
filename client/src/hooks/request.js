@@ -1,5 +1,20 @@
 const API_URL = 'http://localhost:8000';
 
+// Load plans and return as JSON.
+async function httpGetPlans(startDate, endDate) {
+  const response = await fetch(`${API_URL}/plans/search`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      start: startDate,
+      end: endDate,
+    }),
+  });
+  return await response.json();
+}
+
 // Submit given plan data to plan system.
 async function httpSubmitPlan(plan) {
   try {
@@ -17,4 +32,4 @@ async function httpSubmitPlan(plan) {
   }
 }
 
-export { httpSubmitPlan };
+export { httpGetPlans, httpSubmitPlan };

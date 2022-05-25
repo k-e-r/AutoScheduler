@@ -80,24 +80,3 @@
     }
   }
 }
-
-.weekly {
-  &__header {
-    display: flex;
-    text-align: center;
-  }
-
-  &__dayBody {
-    border: 0.2px solid rgb(136, 136, 136);
-    width: calc(100% / 7);
-    height: 1.5rem;
-    line-height: 1.5rem;
-    font-size: 0.8rem;
-  }
-
-  &__body {
-    display: flex;
-    text-align: end;
-    align-items: flex-start;
-  }
-}
