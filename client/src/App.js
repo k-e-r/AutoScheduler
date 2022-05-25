@@ -6,18 +6,18 @@ import Calendar from './pages/calendar/Calendar';
 import SetPlan from './pages/setplan/SetPlan';
 
 const App = () => {
-  const statePlanDate = useSelector((state) => state.planDate.planDate);
-  const [planDate, setPlanDate] = useState(statePlanDate);
+  const statePlanSetFlg = useSelector((state) => state.planDate.planSetFlg);
+  const [planSetFlg, setPlanSetFlg] = useState(statePlanSetFlg);
 
   useEffect(() => {
-    setPlanDate(statePlanDate);
-  }, [statePlanDate]);
+    setPlanSetFlg(statePlanSetFlg);
+  }, [statePlanSetFlg]);
 
   return (
     <>
       <Home />
       <Calendar />
-      {planDate && <SetPlan />}
+      {planSetFlg && <SetPlan />}
     </>
   );
 };

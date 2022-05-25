@@ -18,31 +18,31 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
     }
   }
 
-  const addPlan = () => {
+  const setPlanDate = () => {
     if (Math.abs(day - idx) > 5) {
       if (idx < 6) {
         if (baseDate.getMonth() === 0) {
           const setDate = new Date(baseDate.getFullYear() - 1, 12, day);
-          dispatch(planDateActions.setPlan(setDate.toString()));
+          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
         } else {
           const setDate = new Date(
             baseDate.getFullYear(),
             baseDate.getMonth() - 1,
             day
           );
-          dispatch(planDateActions.setPlan(setDate.toString()));
+          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
         }
       } else {
         if (baseDate.getMonth() === 11) {
           const setDate = new Date(baseDate.getFullYear() + 1, 1, day);
-          dispatch(planDateActions.setPlan(setDate.toString()));
+          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
         } else {
           const setDate = new Date(
             baseDate.getFullYear(),
             baseDate.getMonth() + 1,
             day
           );
-          dispatch(planDateActions.setPlan(setDate.toString()));
+          dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
         }
       }
     } else {
@@ -51,8 +51,12 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
         baseDate.getMonth(),
         day
       );
-      dispatch(planDateActions.setPlan(setDate.toString()));
+      dispatch(planDateActions.setPlan({ planDate: setDate.toString() }));
     }
+  };
+
+  const addPlan = () => {
+    dispatch(planDateActions.setPlanFlg({ planSetFlg: true }));
   };
 
   const handleSingleOrDoubleClick = (e) => {
@@ -60,6 +64,7 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
 
     if (clickCount < 2) {
       setTimeout(() => {
+        setPlanDate();
         if (clickCount > 1) {
           console.log('Double click');
           addPlan();

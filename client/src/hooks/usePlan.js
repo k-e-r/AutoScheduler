@@ -32,7 +32,7 @@ const usePlan = () => {
       const fetchedPlans = await httpGetPlans(startDate, endDate);
       dispatch(planInfoActions.setPlanInfo(fetchedPlans.plan));
     }
-    dispatch(planDateActions.setPlan(''));
+    dispatch(planDateActions.setPlanFlg({ planSetFlg: false }));
   };
 
   return {

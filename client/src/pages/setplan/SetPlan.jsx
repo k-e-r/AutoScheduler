@@ -24,7 +24,7 @@ const SetPlan = () => {
   }, [statePlanDateStr]);
 
   const popupClose = () => {
-    dispatch(planDateActions.setPlan(''));
+    dispatch(planDateActions.setPlanFlg({ planSetFlg: false }));
   };
 
   return (
