@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import './CalendarDayBox.scss';
 
@@ -7,10 +7,6 @@ import { planDateActions } from '../../../store/planDate-slice';
 
 const CalendarDayBox = ({ baseDate, day, idx }) => {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(authActions.loginCheck());
-  // }, []);
-  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   const today = new Date().getDate();
   let markFlg = false;
