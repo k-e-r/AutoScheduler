@@ -45,12 +45,14 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
   const setPlan = () => {
     planInfo.map((plan) => {
       const checkDay = new Date(plan.date);
+      // console.log('plan', plan);
       if (baseDate.getMonth() >= checkDay.getMonth()) {
         setCalendarPlans((prev) => [
           ...prev,
           {
             _id: plan._id,
             idx: showMonth.findIndex((el) => el === checkDay.getDate()),
+            category: plan.category,
             desc: plan.description,
           },
         ]);
@@ -60,6 +62,7 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
           {
             _id: plan._id,
             idx: showMonth.lastIndexOf(checkDay.getDate()),
+            category: plan.category,
             desc: plan.description,
           },
         ]);

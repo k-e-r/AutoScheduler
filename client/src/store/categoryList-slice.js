@@ -2,11 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const categoryListSlice = createSlice({
   name: 'categoryList',
-  initialState: { categoryList: [] },
+  initialState: {
+    categoryList: [],
+    categoryColorList: [],
+    _id: '',
+  },
   reducers: {
     setCategoryList(state, action) {
       console.log('list:', action.payload);
-      state.categoryList = action.payload;
+      state._id = action.payload._id;
+      state.categoryList = action.payload.category;
+      state.categoryColorList = action.payload.color;
     },
   },
 });

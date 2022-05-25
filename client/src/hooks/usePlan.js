@@ -14,7 +14,6 @@ const usePlan = () => {
     const data = new FormData(e.target);
     const prevDate = new Date(data.get('plan-date'));
     const date = prevDate.setHours(prevDate.getHours() + timeOffset);
-    // console.log(data.get('plan-date'));
     const description = data.get('description');
     const category = data.get('category');
     const mode = data.get('mode') === null ? false : data.get('mode');

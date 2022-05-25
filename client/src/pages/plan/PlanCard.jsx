@@ -11,12 +11,12 @@ const PlanCard = () => {
   const dispatch = useDispatch();
   const statePlanDateStr = useSelector((state) => state.planDate.planDate);
   const [planDate, setPlanDate] = useState(statePlanDateStr);
-  const categories = useSelector(
-    (state) => state.categoryList.categoryList
-  ).category;
+  const categoryList = useSelector((state) => state.categoryList.categoryList);
+  const categoryColor = useSelector(
+    (state) => state.categoryList.categoryColorList
+  );
   let statePlanDate = new Date(planDate);
   let theDay = statePlanDate.toISOString().split('T')[0];
-  console.log('categories', categories);
 
   useEffect(() => {
     setPlanDate(() => {
@@ -48,9 +48,9 @@ const PlanCard = () => {
           <label htmlFor='description'>Description</label>
           <input type='text' id='description' name='description' required />
           <label htmlFor='category'>Category</label>
-          <select id='category' name='category' defaultValue={categories[0]}>
-            {categories.map((category) => (
-              <option value={category} key={category}>
+          <select id='category' name='category' defaultValue={categoryList[0]}>
+            {categoryList.map((category, idx) => (
+              <option value={categoryColor[idx]} key={category}>
                 {category}
               </option>
             ))}
