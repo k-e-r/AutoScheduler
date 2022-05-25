@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { planInfoActions } from '../../../store/planInfo-slice';
 import { searchDateActions } from '../../../store/searchDate-slice';
+import { categoryListActions } from '../../../store/categoryList-slice';
 
 import './CalendarBody.scss';
 
 import CalendarDayBox from '../dayBox/CalendarDayBox';
-import { httpGetPlans } from '../../../hooks/request';
+import { httpGetPlans, httpGetCategories } from '../../../hooks/request';
 
 const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -55,6 +56,10 @@ const CalendarBody = ({ baseDate, showMonth }) => {
         ('0' + showMonth[showMonth.length - 1]).slice(-2);
     }
     // console.log('startDate', startDate, 'endDate', endDate);
+    const fetchedCategories = await httpGetCategories();
+    dispatch(
+      categoryListActions.setCategoryList(fetchedCategories.category[0])
+    );
     const fetchedPlans = await httpGetPlans(startDate, endDate);
     dispatch(planInfoActions.setPlanInfo(fetchedPlans.plan));
     dispatch(

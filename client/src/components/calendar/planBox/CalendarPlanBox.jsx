@@ -9,9 +9,10 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
   const [calendarPlans, setCalendarPlans] = useState([]);
   const [calendarPlan, setCalendarPlan] = useState([]);
   const categoryList = useSelector((state) => state.categoryList.categoryList);
-  const categoryColor = useSelector(
+  const stateCategoryColor = useSelector(
     (state) => state.categoryList.categoryColorList
   );
+  const [categoryColor, setCategoryColor] = useState(stateCategoryColor);
 
   // {idx: 8, desc: 'test'}
   useEffect(() => {
@@ -46,6 +47,11 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
     setCalendarPlan([]);
     setCalendarPlans([]);
   }, [statePlanInfo]);
+
+  useEffect(() => {
+    setCategoryColor(stateCategoryColor);
+    setPlanInfo(statePlanInfo);
+  }, [stateCategoryColor]);
 
   useEffect(() => {
     setPlan();
