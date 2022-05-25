@@ -8,6 +8,7 @@ import CalendarPlanBox from '../planBox/CalendarPlanBox';
 
 const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
   const dispatch = useDispatch();
+  let clickCount = 0;
 
   const today = new Date().getDate();
   let markFlg = false;
@@ -17,7 +18,7 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
     }
   }
 
-  const addPlan = (baseDate, day, idx) => {
+  const addPlan = () => {
     if (Math.abs(day - idx) > 5) {
       if (idx < 6) {
         if (baseDate.getMonth() === 0) {
@@ -54,10 +55,26 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
     }
   };
 
+  const handleSingleOrDoubleClick = (e) => {
+    clickCount++;
+
+    if (clickCount < 2) {
+      setTimeout(() => {
+        if (clickCount > 1) {
+          console.log('Double click');
+          addPlan();
+        } else {
+          console.log('Single click');
+        }
+        clickCount = 0;
+      }, 200);
+    }
+  };
+
   return (
     <div
       className='weekly__datebody'
-      onClick={() => addPlan(baseDate, day, idx)}
+      onClick={(e) => handleSingleOrDoubleClick(e)}
     >
       <p
         className={`weekly__dateTitle ${
