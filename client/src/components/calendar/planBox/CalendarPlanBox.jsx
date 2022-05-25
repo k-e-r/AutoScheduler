@@ -8,6 +8,10 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
   const [calendarPlans, setCalendarPlans] = useState([]);
   const [calendarPlan, setCalendarPlan] = useState([]);
+  const categoryList = useSelector((state) => state.categoryList.categoryList);
+  const categoryColor = useSelector(
+    (state) => state.categoryList.categoryColorList
+  );
 
   // {idx: 8, desc: 'test'}
   useEffect(() => {
@@ -20,10 +24,15 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
           if (flg.includes(false)) {
             return [...prev];
           } else {
+            const color =
+              categoryColor[
+                categoryList.findIndex((el) => el === plan.category)
+              ];
             return [
               ...prev,
               {
                 _id: plan._id,
+                category: color,
                 desc: plan.desc,
               },
             ];
@@ -45,7 +54,6 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
   const setPlan = () => {
     planInfo.map((plan) => {
       const checkDay = new Date(plan.date);
-      // console.log('plan', plan);
       if (baseDate.getMonth() >= checkDay.getMonth()) {
         setCalendarPlans((prev) => [
           ...prev,
@@ -77,9 +85,12 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
   return (
     <div className='planbox__wrapper'>
       {calendarPlan.map((plan, idx) => (
-        <p className='planbox__plan' key={idx} onClick={planDetail}>
-          {plan.desc}
-        </p>
+        <div className='planbox__plan-wrapper' key={idx}>
+          <span style={{ backgroundColor: plan.category }}></span>
+          <p className='planbox__plan' onClick={planDetail}>
+            {plan.desc}
+          </p>
+        </div>
       ))}
       {/* {plan ? (
         <p className='planbox__plan' onClick={() => planDetail(plan)}>

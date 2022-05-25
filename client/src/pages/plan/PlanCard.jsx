@@ -12,9 +12,6 @@ const PlanCard = () => {
   const statePlanDateStr = useSelector((state) => state.planDate.planDate);
   const [planDate, setPlanDate] = useState(statePlanDateStr);
   const categoryList = useSelector((state) => state.categoryList.categoryList);
-  const categoryColor = useSelector(
-    (state) => state.categoryList.categoryColorList
-  );
   let statePlanDate = new Date(planDate);
   let theDay = statePlanDate.toISOString().split('T')[0];
 
@@ -49,8 +46,8 @@ const PlanCard = () => {
           <input type='text' id='description' name='description' required />
           <label htmlFor='category'>Category</label>
           <select id='category' name='category' defaultValue={categoryList[0]}>
-            {categoryList.map((category, idx) => (
-              <option value={categoryColor[idx]} key={category}>
+            {categoryList.map((category) => (
+              <option value={category} key={category}>
                 {category}
               </option>
             ))}
