@@ -40,9 +40,10 @@ const PlanCard = () => {
             min={theDay}
             max='2040-12-31'
             defaultValue={theDay}
+            required
           />
           <label htmlFor='description'>Description</label>
-          <input type='text' id='description' name='description' />
+          <input type='text' id='description' name='description' required />
           <label htmlFor='mode'>Memorizing</label>
           <input type='checkbox' id='mode' name='mode' value='true' />
           <label htmlFor='completed'>Completed</label>

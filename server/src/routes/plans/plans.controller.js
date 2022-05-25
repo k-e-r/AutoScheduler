@@ -23,13 +23,13 @@ const getPlans = (req, res) => {
   Plan.find({})
     .then((plan) => {
       res.status(200).json({
-        msg: 'set plan succeeded',
+        msg: 'get plan succeeded',
         plan,
       });
     })
     .catch((err) => {
       res.status(500).json({
-        msg: 'set plan failed',
+        msg: 'get plan failed',
         err,
       });
     });
