@@ -22,30 +22,27 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
       if (idx < 6) {
         if (baseDate.getMonth() === 0) {
           const setDate = new Date(baseDate.getFullYear() - 1, 12, day);
-          console.log(setDate);
+          dispatch(planDateActions.setPlan(setDate.toString()));
         } else {
           const setDate = new Date(
             baseDate.getFullYear(),
             baseDate.getMonth() - 1,
             day
           );
-          console.log(setDate);
+          dispatch(planDateActions.setPlan(setDate.toString()));
         }
-        // dispatch(planDateActions.setPlan(setDate.toString()));
       } else {
         if (baseDate.getMonth() === 11) {
           const setDate = new Date(baseDate.getFullYear() + 1, 1, day);
-          console.log(setDate);
+          dispatch(planDateActions.setPlan(setDate.toString()));
         } else {
           const setDate = new Date(
             baseDate.getFullYear(),
             baseDate.getMonth() + 1,
             day
           );
-          console.log(setDate);
+          dispatch(planDateActions.setPlan(setDate.toString()));
         }
-
-        // dispatch(planDateActions.setPlan(setDate.toString()));
       }
     } else {
       const setDate = new Date(
@@ -53,9 +50,7 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
         baseDate.getMonth(),
         day
       );
-      console.log(setDate);
-
-      // dispatch(planDateActions.setPlan(setDate.toString()));
+      dispatch(planDateActions.setPlan(setDate.toString()));
     }
   };
 

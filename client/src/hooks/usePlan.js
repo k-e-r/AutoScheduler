@@ -1,13 +1,20 @@
-import { httpSubmitPlan } from './request';
+import { useSelector, useDispatch } from 'react-redux';
+import { httpSubmitPlan, httpGetPlans } from './request';
+import { planInfoActions } from '../store/planInfo-slice';
+import { planDateActions } from '../store/planDate-slice';
 
 const usePlan = () => {
+  const dispatch = useDispatch();
+  const startDate = useSelector((state) => state.searchDate.startDate);
+  const endDate = useSelector((state) => state.searchDate.endDate);
+
   const submitPlan = async (e) => {
     e.preventDefault();
     const timeOffset = new Date().getTimezoneOffset() / 60;
     const data = new FormData(e.target);
     const prevDate = new Date(data.get('plan-date'));
     const date = prevDate.setHours(prevDate.getHours() + timeOffset);
-    console.log(new Date(date));
+    // console.log(data.get('plan-date'));
     const description = data.get('description');
     const mode = data.get('mode') === null ? false : data.get('mode');
     const completed =
@@ -19,7 +26,12 @@ const usePlan = () => {
       completed,
     });
 
-    console.log(response.ok);
+    const success = response.ok;
+    if (success) {
+      const fetchedPlans = await httpGetPlans(startDate, endDate);
+      dispatch(planInfoActions.setPlanInfo(fetchedPlans.plan));
+    }
+    dispatch(planDateActions.setPlan(''));
   };
 
   return {

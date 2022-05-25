@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { planInfoActions } from '../../../store/planInfo-slice';
+import { searchDateActions } from '../../../store/searchDate-slice';
 
 import './CalendarBody.scss';
 
@@ -11,13 +12,6 @@ const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const CalendarBody = ({ baseDate, showMonth }) => {
   const dispatch = useDispatch();
-  const [plans, setPlans] = useState([]);
-
-  useEffect(() => {
-    // if (plans.length !== 0) {
-    dispatch(planInfoActions.setPlanInfo(plans));
-    // }
-  }, [plans]);
 
   const getPlans = async () => {
     let startDate, endDate;
@@ -62,7 +56,13 @@ const CalendarBody = ({ baseDate, showMonth }) => {
     }
     // console.log('startDate', startDate, 'endDate', endDate);
     const fetchedPlans = await httpGetPlans(startDate, endDate);
-    setPlans(fetchedPlans.plan);
+    dispatch(planInfoActions.setPlanInfo(fetchedPlans.plan));
+    dispatch(
+      searchDateActions.setSearchDate({
+        startDate,
+        endDate,
+      })
+    );
   };
 
   useEffect(() => {

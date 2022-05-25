@@ -18,7 +18,6 @@ const PlanCard = () => {
     setPlanDate(() => {
       statePlanDate = new Date(statePlanDateStr);
       theDay = statePlanDate.toISOString().split('T')[0];
-      console.log('theDay', theDay);
       return statePlanDateStr;
     });
   }, [statePlanDateStr]);
