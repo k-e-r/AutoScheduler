@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import categoryListSlice from './categoryList-slice';
 
 import planDateSlice from './planDate-slice';
 import planInfoSlice from './planInfo-slice';
@@ -9,6 +10,7 @@ const store = configureStore({
     planDate: planDateSlice.reducer,
     planInfo: planInfoSlice.reducer,
     searchDate: searchDateSlice.reducer,
+    categoryList: categoryListSlice.reducer,
   },
 });
 

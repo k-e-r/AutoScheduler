@@ -1,5 +1,11 @@
 const API_URL = 'http://localhost:8000';
 
+// Load categories and return as JSON.
+async function httpGetCategories() {
+  const response = await fetch(`${API_URL}/categories`);
+  return await response.json();
+}
+
 // Load plans and return as JSON.
 async function httpGetPlans(startDate, endDate) {
   const response = await fetch(`${API_URL}/plans/search`, {
@@ -32,4 +38,4 @@ async function httpSubmitPlan(plan) {
   }
 }
 
-export { httpGetPlans, httpSubmitPlan };
+export { httpGetCategories, httpGetPlans, httpSubmitPlan };

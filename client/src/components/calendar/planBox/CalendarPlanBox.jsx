@@ -8,7 +8,6 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
   const [calendarPlans, setCalendarPlans] = useState([]);
   const [calendarPlan, setCalendarPlan] = useState([]);
-  // console.log('statePlanInfo', statePlanInfo);
 
   // {idx: 8, desc: 'test'}
   useEffect(() => {
