@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { planInfoActions } from '../../../store/planInfo-slice';
 
 import './CalendarBody.scss';
 
@@ -8,8 +10,14 @@ import { httpGetPlans } from '../../../hooks/request';
 const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const CalendarBody = ({ baseDate, showMonth }) => {
+  const dispatch = useDispatch();
   const [plans, setPlans] = useState([]);
-  console.log(plans);
+
+  useEffect(() => {
+    if (plans.length !== 0) {
+      dispatch(planInfoActions.setPlanInfo(plans));
+    }
+  }, [plans]);
 
   const getPlans = async () => {
     let startDate, endDate;
@@ -41,6 +49,7 @@ const CalendarBody = ({ baseDate, showMonth }) => {
         '-' +
         ('0' + showMonth[showMonth.length - 1]).slice(-2);
     }
+    // console.log('startDate', startDate, 'endDate', endDate);
     const fetchedPlans = await httpGetPlans(startDate, endDate);
     setPlans(fetchedPlans.plan);
   };

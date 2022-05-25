@@ -4,22 +4,13 @@ const planInfoSlice = createSlice({
   name: 'planInfo',
   initialState: { planInfo: [] },
   reducers: {
-    checkPlan(state) {
+    checkPlanInfo(state) {
       state.planInfo = sessionStorage.getItem('planInfo');
     },
-    // setPlan(state, action) {
-    //   const existingPlanIndex = state.planInfo.findIndex((plan) => {
-    //     plan.description === action.payload.description;
-    //   });
-
-    //   if (existingPlanIndex === -1) {
-    //     if (state.planInfo.length !== 0) {
-    //       state.planInfo = state.planInfo.concat([action.payload]);
-    //     } else {
-    //       state.planInfo = [action.payload];
-    //     }
-    //   }
-    // },
+    setPlanInfo(state, action) {
+      console.log('action.payload', action.payload);
+      state.planInfo = action.payload;
+    },
   },
 });
 

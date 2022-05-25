@@ -3,8 +3,11 @@ import { httpSubmitPlan } from './request';
 const usePlan = () => {
   const submitPlan = async (e) => {
     e.preventDefault();
+    const timeOffset = new Date().getTimezoneOffset() / 60;
     const data = new FormData(e.target);
-    const date = new Date(data.get('plan-date'));
+    const prevDate = new Date(data.get('plan-date'));
+    const date = prevDate.setHours(prevDate.getHours() + timeOffset);
+    console.log(new Date(date));
     const description = data.get('description');
     const mode = data.get('mode') === null ? false : data.get('mode');
     const completed =

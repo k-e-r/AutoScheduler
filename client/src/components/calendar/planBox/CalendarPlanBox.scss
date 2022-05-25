@@ -1,8 +1,24 @@
-.planbox__wrapper {
-  p {
+.planbox {
+  &__wrapper {
+  }
+  &__plan {
+    font-size: 0.8rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
+    padding: 0 0.3rem;
+    text-align: left;
+    margin-top: 0.1rem;
   }
 }
+
+// font-size: 0.8rem;
+// margin-top: 0.2rem;
+// margin-right: 0.2rem;
+// display: inline-block;
+// width: max-content;
+// min-width: 1.3rem;
+// min-height: 1.3rem;
+// line-height: 1.3rem;
+// text-align: center;

@@ -8,18 +8,18 @@
     &:hover {
       background-color: rgb(255, 248, 225);
     }
+  }
 
-    p {
-      font-size: 0.8rem;
-      margin-top: 0.2rem;
-      margin-right: 0.2rem;
-      display: inline-block;
-      width: max-content;
-      min-width: 1.3rem;
-      min-height: 1.3rem;
-      line-height: 1.3rem;
-      text-align: center;
-    }
+  &__dateTitle {
+    font-size: 0.8rem;
+    margin-top: 0.2rem;
+    margin-right: 0.2rem;
+    display: inline-block;
+    width: max-content;
+    min-width: 1.3rem;
+    min-height: 1.3rem;
+    line-height: 1.3rem;
+    text-align: center;
   }
 }
 

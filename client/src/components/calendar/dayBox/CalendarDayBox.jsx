@@ -36,13 +36,18 @@ const CalendarDayBox = ({ baseDate, day, idx, showMonth }) => {
       onClick={() => addPlan(baseDate, day, idx)}
     >
       <p
-        className={`${Math.abs(day - idx) > 5 ? 'dayGrey ' : ''} ${
-          day === today && markFlg ? 'today' : ''
-        }`}
+        className={`weekly__dateTitle ${
+          Math.abs(day - idx) > 5 ? 'dayGrey ' : ''
+        } ${day === today && markFlg ? 'today' : ''}`}
       >
         {day}
       </p>
-      <CalendarPlanBox baseDate={baseDate} showMonth={showMonth} />
+      <CalendarPlanBox
+        baseDate={baseDate}
+        day={day}
+        showMonth={showMonth}
+        idx={idx}
+      />
     </div>
   );
 };
