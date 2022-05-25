@@ -8,18 +8,35 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
   const [calendarPlans, setCalendarPlans] = useState([]);
   const [calendarPlan, setCalendarPlan] = useState([]);
+  // console.log('statePlanInfo', statePlanInfo);
 
   // {idx: 8, desc: 'test'}
   useEffect(() => {
-    if (calendarPlan.length === 0) {
-      calendarPlans.map((plan) => {
-        if (plan.idx === idx) setCalendarPlan((prev) => [...prev, plan.desc]);
-      });
-    }
+    calendarPlans.map((plan) => {
+      if (plan.idx === idx)
+        setCalendarPlan((prev) => {
+          const flg = prev?.map((el) => {
+            if (el._id === plan._id) return false;
+          });
+          if (flg.includes(false)) {
+            return [...prev];
+          } else {
+            return [
+              ...prev,
+              {
+                _id: plan._id,
+                desc: plan.desc,
+              },
+            ];
+          }
+        });
+    });
   }, [calendarPlans]);
 
   useEffect(() => {
     setPlanInfo(statePlanInfo);
+    setCalendarPlan([]);
+    setCalendarPlans([]);
   }, [statePlanInfo]);
 
   useEffect(() => {
@@ -33,6 +50,7 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
         setCalendarPlans((prev) => [
           ...prev,
           {
+            _id: plan._id,
             idx: showMonth.findIndex((el) => el === checkDay.getDate()),
             desc: plan.description,
           },
@@ -41,6 +59,7 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
         setCalendarPlans((prev) => [
           ...prev,
           {
+            _id: plan._id,
             idx: showMonth.lastIndexOf(checkDay.getDate()),
             desc: plan.description,
           },
@@ -57,7 +76,7 @@ const CalendarPlanBox = ({ baseDate, day, showMonth, idx }) => {
     <div className='planbox__wrapper'>
       {calendarPlan.map((plan, idx) => (
         <p className='planbox__plan' key={idx} onClick={planDetail}>
-          {plan}
+          {plan.desc}
         </p>
       ))}
       {/* {plan ? (

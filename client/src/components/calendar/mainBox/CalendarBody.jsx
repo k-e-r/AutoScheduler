@@ -14,21 +14,30 @@ const CalendarBody = ({ baseDate, showMonth }) => {
   const [plans, setPlans] = useState([]);
 
   useEffect(() => {
-    if (plans.length !== 0) {
-      dispatch(planInfoActions.setPlanInfo(plans));
-    }
+    // if (plans.length !== 0) {
+    dispatch(planInfoActions.setPlanInfo(plans));
+    // }
   }, [plans]);
 
   const getPlans = async () => {
     let startDate, endDate;
     if (showMonth[0] !== 1) {
-      startDate =
-        baseDate.getFullYear() +
-        '-' +
-        ('0' + baseDate.getMonth()).slice(-2) +
-        '-' +
-        ('0' + showMonth[0]).slice(-2);
+      // prevMonth
+      if (baseDate.getMonth() === 0) {
+        // Jan
+        startDate =
+          baseDate.getFullYear() - 1 + '-12-' + ('0' + showMonth[0]).slice(-2);
+      } else {
+        // !Jan
+        startDate =
+          baseDate.getFullYear() +
+          '-' +
+          ('0' + baseDate.getMonth()).slice(-2) +
+          '-' +
+          ('0' + showMonth[0]).slice(-2);
+      }
     } else {
+      // this month
       startDate =
         baseDate.getFullYear() +
         '-' +
@@ -36,12 +45,14 @@ const CalendarBody = ({ baseDate, showMonth }) => {
         '-01';
     }
     if (baseDate.getMonth() === 11) {
+      // Dec
       endDate =
         baseDate.getFullYear() +
         1 +
         '-01-' +
         ('0' + showMonth[showMonth.length - 1]).slice(-2);
     } else {
+      // !Dec
       endDate =
         baseDate.getFullYear() +
         '-' +
