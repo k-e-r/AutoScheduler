@@ -35,22 +35,50 @@ const getPlans = (req, res) => {
     });
 };
 
-const getPlan = (req, res) => {
-  const planId = req.params.id;
+// const getPlan = (req, res) => {
+//   const planId = req.params.id;
 
-  Plan.findById(planId)
-    .then((plan) => {
-      res.status(200).json({
-        msg: 'find plan succeeded',
-        plan,
-      });
-    })
-    .catch((err) => {
-      res.status(500).json({
-        msg: 'plan not found',
-        err,
-      });
-    });
+//   Plan.findById(planId)
+//     .then((plan) => {
+//       res.status(200).json({
+//         msg: 'find plan succeeded',
+//         plan,
+//       });
+//     })
+//     .catch((err) => {
+//       res.status(500).json({
+//         msg: 'plan not found',
+//         err,
+//       });
+//     });
+// };
+
+const searchPlan = (req, res) => {
+  const keyword = req.body;
+  console.log(keyword);
+
+  Plan.find(
+    {
+      date: {
+        $gte: new Date(keyword.start),
+        $lt: new Date(keyword.end),
+      },
+    },
+    (err, data) => {
+      console.log(err, data);
+      if (err) {
+        return res.status(404).json({
+          msg: 'plan not found',
+          err,
+        });
+      } else {
+        return res.status(200).json({
+          msg: 'find plan succeeded',
+          plan: data,
+        });
+      }
+    }
+  );
 };
 
 const editPlan = (req, res) => {
@@ -112,7 +140,8 @@ const deletePlan = (req, res) => {
 module.exports = {
   setPlan,
   getPlans,
-  getPlan,
+  // getPlan,
+  searchPlan,
   editPlan,
   deletePlan,
 };

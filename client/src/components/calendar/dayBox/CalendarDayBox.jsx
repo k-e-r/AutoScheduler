@@ -1,9 +1,10 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { planDateActions } from '../../../store/planDate-slice';
 
 import './CalendarDayBox.scss';
 
-import { planDateActions } from '../../../store/planDate-slice';
+import CalendarPlanBox from '../planBox/CalendarPlanBox';
 
 const CalendarDayBox = ({ baseDate, day, idx }) => {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ const CalendarDayBox = ({ baseDate, day, idx }) => {
       >
         {day}
       </p>
+      <CalendarPlanBox baseDate={baseDate} />
     </div>
   );
 };
