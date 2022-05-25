@@ -4,8 +4,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import './PlanCard.scss';
 
 import { planDateActions } from '../../store/planDate-slice';
+import usePlan from '../../hooks/usePlan';
 
 const PlanCard = () => {
+  const { submitPlan } = usePlan();
   const dispatch = useDispatch();
   const statePlanDateStr = useSelector((state) => state.planDate.planDate);
   const [planDate, setPlanDate] = useState(statePlanDateStr);
@@ -25,22 +27,11 @@ const PlanCard = () => {
     dispatch(planDateActions.setPlan(''));
   };
 
-  const planSubmit = (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    console.log(
-      new Date(data.get('plan-date')),
-      data.get('description'),
-      data.get('mode'),
-      data.get('completed')
-    );
-  };
-
   return (
     <>
       <div className='plan__back' onClick={popupClose} />
       <div className='plan__card'>
-        <form onSubmit={planSubmit} className='plan__form'>
+        <form onSubmit={submitPlan} className='plan__form'>
           <label htmlFor='plan-date'>Set Date</label>
           <input
             type='date'

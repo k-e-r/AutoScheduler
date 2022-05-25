@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const planSchema = new mongoose.Schema(
   {
+    date: {
+      type: Date,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
