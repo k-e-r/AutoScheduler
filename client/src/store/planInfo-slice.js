@@ -8,7 +8,6 @@ const planInfoSlice = createSlice({
       state.planInfo = sessionStorage.getItem('planInfo');
     },
     setPlanInfo(state, action) {
-      console.log('action.payload', action.payload);
       state.planInfo = action.payload;
     },
   },
