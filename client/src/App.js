@@ -5,12 +5,17 @@ import Home from './pages/home/Home';
 import Calendar from './pages/calendar/Calendar';
 import SetPlan from './pages/setplan/SetPlan';
 import EditPlan from './pages/editplan/EditPlan';
+import EditCategory from './pages/editcategory/EditCategory';
 
 const App = () => {
   const statePlanSetFlg = useSelector((state) => state.planData.planSetFlg);
   const [planSetFlg, setPlanSetFlg] = useState(statePlanSetFlg);
-  const stateplanEditInfo = useSelector((state) => state.planData.planEditInfo);
-  const [planEditInfo, setPlanEditInfo] = useState(statePlanSetFlg);
+  const statePlanEditInfo = useSelector((state) => state.planData.planEditInfo);
+  const [planEditInfo, setPlanEditInfo] = useState(statePlanEditInfo);
+  const stateCategoryEditFlg = useSelector(
+    (state) => state.categoryList.categoryEditFlg
+  );
+  const [categoryEditFlg, setCategoryEditFlg] = useState(stateCategoryEditFlg);
   console.log('planEditInfo', planEditInfo);
 
   useEffect(() => {
@@ -18,8 +23,12 @@ const App = () => {
   }, [statePlanSetFlg]);
 
   useEffect(() => {
-    setPlanEditInfo(stateplanEditInfo);
-  }, [stateplanEditInfo]);
+    setPlanEditInfo(statePlanEditInfo);
+  }, [statePlanEditInfo]);
+
+  useEffect(() => {
+    setCategoryEditFlg(stateCategoryEditFlg);
+  }, [stateCategoryEditFlg]);
 
   return (
     <>
@@ -27,6 +36,7 @@ const App = () => {
       <Calendar />
       {planSetFlg && <SetPlan />}
       {planEditInfo && <EditPlan />}
+      {categoryEditFlg && <EditCategory />}
     </>
   );
 };

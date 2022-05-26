@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { categoryListActions } from '../../store/categoryList-slice';
 
 import './CalendarSideMenu.scss';
 
 const CalendarSideMenu = () => {
+  const dispatch = useDispatch();
   const categoryList = useSelector((state) => state.categoryList.categoryList);
   const stateCategoryColor = useSelector(
     (state) => state.categoryList.categoryColorList
@@ -14,9 +16,15 @@ const CalendarSideMenu = () => {
     setCategoryColor(stateCategoryColor);
   }, [stateCategoryColor]);
 
+  const editCategory = () => {
+    dispatch(categoryListActions.setCategoryEditFlg({ categoryEditFlg: true }));
+  };
+
   return (
     <div className='cal__sidemenu__wrapper'>
-      <div className='cal__sidemenu__card'>Category List</div>
+      <div className='cal__sidemenu__card' onClick={() => editCategory()}>
+        Category List
+      </div>
       {categoryList.map((category, idx) => (
         <div className='cal__sidemenu__category' key={idx}>
           <span style={{ backgroundColor: categoryColor[idx] }}></span>

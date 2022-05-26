@@ -6,12 +6,16 @@ const categoryListSlice = createSlice({
     categoryList: [],
     categoryColorList: [],
     _id: '',
+    categoryEditFlg: false,
   },
   reducers: {
     setCategoryList(state, action) {
       state._id = action.payload._id;
       state.categoryList = action.payload.category;
       state.categoryColorList = action.payload.color;
+    },
+    setCategoryEditFlg(state, action) {
+      state.categoryEditFlg = action.payload.categoryEditFlg;
     },
   },
 });
