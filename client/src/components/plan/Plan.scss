@@ -1,4 +1,14 @@
+@import '../../_variables';
+
 .cal__detail {
+  &__card {
+    margin-bottom: 1rem;
+
+    @media only screen and (max-width: ($bp-small)) {
+      font-size: 0.9rem;
+    }
+  }
+
   &__itemcard {
     &-wrap {
       margin: 1rem auto 0;
@@ -34,6 +44,17 @@
       p {
         font-weight: 550;
       }
+
+      @media only screen and (max-width: ($bp-small)) {
+        font-size: 0.8rem;
+        p {
+          font-weight: 200;
+        }
+      }
+
+      @media only screen and (max-width: ($bp-smallest)) {
+        display: none;
+      }
     }
 
     &:hover {
@@ -48,15 +69,42 @@
       grid-column: 2 / span 3;
     }
 
+    &-icon {
+      width: 18px;
+      height: 18px;
+      stroke-width: 4;
+    }
+
     &-iconDelete {
       z-index: 5;
       cursor: pointer;
       color: #747474;
       transition: all 0.3s ease-in-out;
       margin-right: 1.5rem;
+      width: 25px;
+      height: 25px;
+      stroke-width: 1.7;
 
       &:hover {
         color: rgb(219, 12, 12);
+      }
+    }
+
+    @media only screen and (max-width: ($bp-small)) {
+      font-size: 0.8rem;
+      p {
+        font-weight: 200;
+      }
+
+      &-icon {
+        width: 18px;
+        height: 18px;
+        stroke-width: 2;
+      }
+
+      &-iconDelete {
+        width: 20px;
+        height: 20px;
       }
     }
   }

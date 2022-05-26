@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { planDataActions } from '../../store/planData-slice';
-import { Check, Trash } from 'tabler-icons-react';
+import { Check, Trash, Repeat } from 'tabler-icons-react';
 
 import usePlan from '../../hooks/usePlan';
 
@@ -35,23 +35,17 @@ function Plan({ plan, idx }) {
       <div onClick={() => editPlan(plan)} className='cal__detail__itemcard'>
         <p className='cal__detail__itemcard-id'>{idx + 1}</p>
         <p className='cal__detail__itemcard-desc'>{plan.description}</p>
-        <Check
+        <Repeat
           className='cal__detail__itemcard-icon'
-          size={18}
-          strokeWidth={4}
-          style={{ color: plan.mode ? '#11d442' : '#d5d5d5' }}
+          style={{ color: plan.mode ? '#5996ff' : '#d5d5d5' }}
         />
         <Check
           className='cal__detail__itemcard-icon'
-          size={18}
-          strokeWidth={4}
           style={{ color: plan.completed ? '#11d442' : '#d5d5d5' }}
         />
       </div>
       <Trash
         className='cal__detail__itemcard-iconDelete'
-        size={25}
-        strokeWidth={1.7}
         onClick={() => handleSingleOrDoubleClick()}
       />
     </div>

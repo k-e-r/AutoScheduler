@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .calendar {
   &__wrapper {
     margin: 1rem;
@@ -8,5 +10,9 @@
 
   &__mainbody {
     display: flex;
+
+    @media only screen and (max-width: ($bp-small)) {
+      flex-direction: column;
+    }
   }
 }

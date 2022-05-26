@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Check } from 'tabler-icons-react';
+import { Check, Repeat } from 'tabler-icons-react';
 
 import './SetPlan.scss';
 
@@ -67,11 +67,11 @@ const SetPlan = () => {
               checked={mode}
               onChange={handleOnChange}
             />
-            <Check
+            <Repeat
               className='editplan__form__icon'
               size={18}
               strokeWidth={4}
-              style={{ color: mode ? '#11d442' : '#d5d5d5' }}
+              style={{ color: mode ? '#5996ff' : '#d5d5d5' }}
             />
           </label>
           <label htmlFor='completed' className='editplan__form__checkbox'>

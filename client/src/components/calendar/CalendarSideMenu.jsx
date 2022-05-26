@@ -25,12 +25,14 @@ const CalendarSideMenu = () => {
       <div className='cal__sidemenu__card' onClick={() => editCategory()}>
         Category List
       </div>
-      {categoryList.map((category, idx) => (
-        <div className='cal__sidemenu__category' key={idx}>
-          <span style={{ backgroundColor: categoryColor[idx] }}></span>
-          <p className=''>{category}</p>
-        </div>
-      ))}
+      <div className='cal__sidemenu__category-wrapper'>
+        {categoryList.map((category, idx) => (
+          <div className='cal__sidemenu__category' key={idx}>
+            <span style={{ backgroundColor: categoryColor[idx] }}></span>
+            <p className=''>{category}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
