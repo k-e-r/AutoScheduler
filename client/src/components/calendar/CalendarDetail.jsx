@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Check } from 'tabler-icons-react';
+import { Check, Trash } from 'tabler-icons-react';
 import { planDataActions } from '../../store/planData-slice';
 
 import './CalendarDetail.scss';
@@ -13,6 +13,7 @@ const CalendarDetail = () => {
 
   const statePlanInfo = useSelector((state) => state.planData.planInfo);
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
+  let clickCount = 0;
 
   useEffect(() => {
     setPlanInfo(statePlanInfo);
@@ -41,6 +42,21 @@ const CalendarDetail = () => {
     dispatch(planDataActions.editPlanInfo({ planEditInfo: plan }));
   };
 
+  const handleSingleOrDoubleClick = () => {
+    clickCount++;
+
+    if (clickCount < 2) {
+      setTimeout(() => {
+        if (clickCount > 1) {
+          console.log('double');
+          // if (mode) addCategory({ id, category, color });
+          // if (!mode) deleteCategory({ id, category });
+        }
+        clickCount = 0;
+      }, 200);
+    }
+  };
+
   return (
     <div className='cal__detail__wrapper'>
       <div className='cal__detail__card'>Plan Detail</div>
@@ -52,24 +68,33 @@ const CalendarDetail = () => {
         <p className='cal__detail__itemcard-completed'>Completed</p>
       </div>
       {calendarPlan.map((plan, idx) => (
-        <div
-          className='cal__detail__itemcard'
-          key={idx}
-          onClick={() => editPlan(plan.plan)}
-        >
-          <p className='cal__detail__itemcard-id'>{idx + 1}</p>
-          <p className='cal__detail__itemcard-desc'>{plan.plan.description}</p>
-          <Check
-            className='cal__detail__itemcard-icon'
-            size={18}
-            strokeWidth={4}
-            style={{ color: plan.plan.mode ? '#11d442' : '#d5d5d5' }}
-          />
-          <Check
-            className='cal__detail__itemcard-icon'
-            size={18}
-            strokeWidth={4}
-            style={{ color: plan.plan.completed ? '#11d442' : '#d5d5d5' }}
+        <div className='cal__detail__itemcard-wrap' key={idx}>
+          <div
+            onClick={() => editPlan(plan.plan)}
+            className='cal__detail__itemcard'
+          >
+            <p className='cal__detail__itemcard-id'>{idx + 1}</p>
+            <p className='cal__detail__itemcard-desc'>
+              {plan.plan.description}
+            </p>
+            <Check
+              className='cal__detail__itemcard-icon'
+              size={18}
+              strokeWidth={4}
+              style={{ color: plan.plan.mode ? '#11d442' : '#d5d5d5' }}
+            />
+            <Check
+              className='cal__detail__itemcard-icon'
+              size={18}
+              strokeWidth={4}
+              style={{ color: plan.plan.completed ? '#11d442' : '#d5d5d5' }}
+            />
+          </div>
+          <Trash
+            className='cal__detail__itemcard-iconDelete'
+            size={25}
+            strokeWidth={1.7}
+            onClick={() => handleSingleOrDoubleClick()}
           />
         </div>
       ))}
