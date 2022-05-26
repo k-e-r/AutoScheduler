@@ -78,8 +78,6 @@ const EditPlan = () => {
             />
             <Repeat
               className='editplan__form__icon'
-              size={18}
-              strokeWidth={4}
               style={{ color: mode ? '#5996ff' : '#d5d5d5' }}
             />
           </label>
@@ -95,8 +93,6 @@ const EditPlan = () => {
             />
             <Check
               className='editplan__form__icon'
-              size={18}
-              strokeWidth={4}
               style={{ color: comp ? '#11d442' : '#d5d5d5' }}
             />
           </label>
