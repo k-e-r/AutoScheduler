@@ -26,6 +26,10 @@
       grid-template-columns: 2rem repeat(5, 1fr);
       align-items: center;
       justify-items: center;
+
+      p {
+        font-weight: 550;
+      }
     }
 
     margin: 1rem auto 0;
@@ -43,7 +47,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: rgb(237, 231, 246);
+      background-color: rgb(255, 248, 225);
     }
 
     &-id {

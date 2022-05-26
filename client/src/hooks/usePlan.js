@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { httpSubmitPlan, httpGetPlans } from './request';
+import { httpSubmitPlan, httpGetPlans, httpEditPlan } from './request';
 import { planDataActions } from '../store/planData-slice';
 
 const usePlan = () => {
@@ -34,8 +34,37 @@ const usePlan = () => {
     dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
 
+  const editPlan = async (e) => {
+    e.preventDefault();
+    const timeOffset = new Date().getTimezoneOffset() / 60;
+    const data = new FormData(e.target);
+    const _id = data.get('_id');
+    const prevDate = new Date(data.get('plan-date'));
+    const date = prevDate.setHours(prevDate.getHours() + timeOffset);
+    const description = data.get('description');
+    const category = data.get('category');
+    const mode = data.get('mode') === null ? false : data.get('mode');
+    const completed =
+      data.get('completed') === null ? false : data.get('completed');
+    const response = await httpEditPlan(_id, {
+      date,
+      description,
+      category,
+      mode,
+      completed,
+    });
+
+    const success = response.ok;
+    if (success) {
+      const fetchedPlans = await httpGetPlans(startDate, endDate);
+      dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
+    }
+    dispatch(planDataActions.editPlanInfo({ planEditInfo: '' }));
+  };
+
   return {
     submitPlan,
+    editPlan,
   };
 };
 

@@ -1,6 +1,6 @@
 .plan {
   &__back {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
@@ -9,7 +9,7 @@
   }
 
   &__card {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -23,7 +23,7 @@
     display: grid;
     // grid-template-columns: 5rem 1fr;
     grid-template-rows: repeat(5, 1fr);
-    grid-template-columns: reprat(3, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     grid-gap: 1.5rem;
     padding: 1.5rem;
     align-items: center;
@@ -31,6 +31,12 @@
 
     & input {
       grid-column: 2 / span 2;
+    }
+
+    &__icon {
+      grid-column: 2 / span 2;
+      margin: 0 auto;
+      cursor: pointer;
     }
 
     input {
@@ -52,6 +58,10 @@
           opacity: 0;
         }
       }
+
+      &[type='checkbox'] {
+        display: none;
+      }
     }
 
     select {
@@ -63,6 +73,12 @@
       &:focus {
         outline: none;
       }
+    }
+
+    &__checkbox {
+      grid-column: 1 / span 3;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
     }
 
     & button {

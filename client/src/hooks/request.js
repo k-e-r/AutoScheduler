@@ -38,4 +38,21 @@ async function httpSubmitPlan(plan) {
   }
 }
 
-export { httpGetCategories, httpGetPlans, httpSubmitPlan };
+// Edit plan data
+async function httpEditPlan(id, plan) {
+  try {
+    return await fetch(`${API_URL}/plans/${id}`, {
+      method: 'put',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(plan),
+    });
+  } catch (err) {
+    return {
+      ok: false,
+    };
+  }
+}
+
+export { httpGetCategories, httpGetPlans, httpSubmitPlan, httpEditPlan };

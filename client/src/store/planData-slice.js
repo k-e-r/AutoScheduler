@@ -6,7 +6,7 @@ const planDataSlice = createSlice({
     planDate: new Date().toISOString(),
     planInfo: [],
     planSetFlg: false,
-    planEditFlg: false,
+    planEditInfo: '',
   },
   reducers: {
     setPlanDate(state, action) {
@@ -18,8 +18,8 @@ const planDataSlice = createSlice({
     setPlanFlg(state, action) {
       state.planSetFlg = action.payload.planSetFlg;
     },
-    editPlanFlg(state, action) {
-      state.planEditFlg = action.payload.planEditFlg;
+    editPlanInfo(state, action) {
+      state.planEditInfo = action.payload.planEditInfo;
     },
   },
 });

@@ -9,23 +9,24 @@ import EditPlan from './pages/editplan/EditPlan';
 const App = () => {
   const statePlanSetFlg = useSelector((state) => state.planData.planSetFlg);
   const [planSetFlg, setPlanSetFlg] = useState(statePlanSetFlg);
-  const stateplanEditFlg = useSelector((state) => state.planData.planEditFlg);
-  const [planEditFlg, setPlanEditFlg] = useState(statePlanSetFlg);
+  const stateplanEditInfo = useSelector((state) => state.planData.planEditInfo);
+  const [planEditInfo, setPlanEditInfo] = useState(statePlanSetFlg);
+  console.log('planEditInfo', planEditInfo);
 
   useEffect(() => {
     setPlanSetFlg(statePlanSetFlg);
   }, [statePlanSetFlg]);
 
   useEffect(() => {
-    setPlanEditFlg(stateplanEditFlg);
-  }, [stateplanEditFlg]);
+    setPlanEditInfo(stateplanEditInfo);
+  }, [stateplanEditInfo]);
 
   return (
     <>
       <Home />
       <Calendar />
       {planSetFlg && <SetPlan />}
-      {planEditFlg && <EditPlan />}
+      {planEditInfo && <EditPlan />}
     </>
   );
 };

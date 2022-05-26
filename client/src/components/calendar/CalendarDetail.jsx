@@ -37,8 +37,8 @@ const CalendarDetail = () => {
     });
   };
 
-  const editPlan = () => {
-    dispatch(planDataActions.editPlanFlg({ planEditFlg: true }));
+  const editPlan = (plan) => {
+    dispatch(planDataActions.editPlanInfo({ planEditInfo: plan }));
   };
 
   return (
@@ -52,7 +52,11 @@ const CalendarDetail = () => {
         <p className='cal__detail__itemcard-completed'>Completed</p>
       </div>
       {calendarPlan.map((plan, idx) => (
-        <div className='cal__detail__itemcard' key={idx} onClick={editPlan}>
+        <div
+          className='cal__detail__itemcard'
+          key={idx}
+          onClick={() => editPlan(plan.plan)}
+        >
           <p className='cal__detail__itemcard-id'>{idx + 1}</p>
           <p className='cal__detail__itemcard-desc'>{plan.plan.description}</p>
           <Check
