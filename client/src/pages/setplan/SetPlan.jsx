@@ -3,13 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import './SetPlan.scss';
 
-import { planDateActions } from '../../store/planDate-slice';
+import { planDataActions } from '../../store/planData-slice';
 import usePlan from '../../hooks/usePlan';
 
 const SetPlan = () => {
   const { submitPlan } = usePlan();
   const dispatch = useDispatch();
-  const statePlanDateStr = useSelector((state) => state.planDate.planDate);
+  const statePlanDateStr = useSelector((state) => state.planData.planDate);
   const [planDate, setPlanDate] = useState(statePlanDateStr);
   const categoryList = useSelector((state) => state.categoryList.categoryList);
   let theDay = planDate.split('T')[0];
@@ -22,7 +22,7 @@ const SetPlan = () => {
   }, [statePlanDateStr]);
 
   const popupClose = () => {
-    dispatch(planDateActions.setPlanFlg({ planSetFlg: false }));
+    dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
 
   return (

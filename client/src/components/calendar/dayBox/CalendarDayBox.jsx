@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { planDateActions } from '../../../store/planDate-slice';
+import { planDataActions } from '../../../store/planData-slice';
 
 import './CalendarDayBox.scss';
 
@@ -52,12 +52,12 @@ const CalendarDayBox = ({
     } else {
       setDate = new Date(baseDate.getFullYear(), baseDate.getMonth(), day);
     }
-    dispatch(planDateActions.setPlan({ planDate: setDate.toISOString() }));
+    dispatch(planDataActions.setPlanDate({ planDate: setDate.toISOString() }));
     changeColorIdx(idx);
   };
 
   const addPlan = () => {
-    dispatch(planDateActions.setPlanFlg({ planSetFlg: true }));
+    dispatch(planDataActions.setPlanFlg({ planSetFlg: true }));
   };
 
   const handleSingleOrDoubleClick = (e) => {

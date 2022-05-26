@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import './CalendarPlanBox.scss';
 
 const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
-  const statePlanInfo = useSelector((state) => state.planInfo.planInfo);
+  const statePlanInfo = useSelector((state) => state.planData.planInfo);
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
   const [calendarPlans, setCalendarPlans] = useState([]);
   const [calendarPlan, setCalendarPlan] = useState([]);

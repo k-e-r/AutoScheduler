@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { httpSubmitPlan, httpGetPlans } from './request';
-import { planInfoActions } from '../store/planInfo-slice';
-import { planDateActions } from '../store/planDate-slice';
+import { planDataActions } from '../store/planData-slice';
 
 const usePlan = () => {
   const dispatch = useDispatch();
@@ -30,9 +29,9 @@ const usePlan = () => {
     const success = response.ok;
     if (success) {
       const fetchedPlans = await httpGetPlans(startDate, endDate);
-      dispatch(planInfoActions.setPlanInfo(fetchedPlans.plan));
+      dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
     }
-    dispatch(planDateActions.setPlanFlg({ planSetFlg: false }));
+    dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
 
   return {

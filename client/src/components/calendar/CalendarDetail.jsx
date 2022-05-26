@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Check } from 'tabler-icons-react';
+import { planDataActions } from '../../store/planData-slice';
 
 import './CalendarDetail.scss';
 
 const CalendarDetail = () => {
-  const statePlanDate = useSelector((state) => state.planDate.planDate);
+  const dispatch = useDispatch();
+  const statePlanDate = useSelector((state) => state.planData.planDate);
   const [planDate, setPlanDate] = useState(statePlanDate);
   const [calendarPlan, setCalendarPlan] = useState([]);
-  console.log(calendarPlan);
 
-  const statePlanInfo = useSelector((state) => state.planInfo.planInfo);
+  const statePlanInfo = useSelector((state) => state.planData.planInfo);
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const CalendarDetail = () => {
             plan,
           },
         ]);
-      } else console.log('none');
+      }
     });
   };
 
@@ -44,7 +45,7 @@ const CalendarDetail = () => {
   }, [statePlanDate]);
 
   const editPlan = () => {
-    // dispatch(planDateActions.setPlanFlg({ planSetFlg: true }));
+    dispatch(planDataActions.editPlanFlg({ planEditFlg: true }));
   };
 
   return (

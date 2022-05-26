@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { planInfoActions } from '../../../store/planInfo-slice';
+import { planDataActions } from '../../../store/planData-slice';
 import { searchDateActions } from '../../../store/searchDate-slice';
 import { categoryListActions } from '../../../store/categoryList-slice';
 
@@ -66,7 +66,11 @@ const CalendarBody = ({ baseDate, showMonth }) => {
       categoryListActions.setCategoryList(fetchedCategories.category[0])
     );
     const fetchedPlans = await httpGetPlans(startDate, endDate);
-    dispatch(planInfoActions.setPlanInfo(fetchedPlans.plan));
+    dispatch(
+      planDataActions.setPlanInfo({
+        planInfo: fetchedPlans.plan,
+      })
+    );
     dispatch(
       searchDateActions.setSearchDate({
         startDate,
