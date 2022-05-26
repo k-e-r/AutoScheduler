@@ -15,16 +15,14 @@ const CalendarDetail = () => {
   const [planInfo, setPlanInfo] = useState(statePlanInfo);
 
   useEffect(() => {
-    setPlanDate(statePlanDate);
-  }, [statePlanDate]);
-
-  useEffect(() => {
     setPlanInfo(statePlanInfo);
-  }, [statePlanInfo]);
+    setPlanDate(statePlanDate);
+    setCalendarPlan([]);
+  }, [statePlanInfo, statePlanDate]);
 
   useEffect(() => {
     checkData();
-  }, [planDate]);
+  }, [planInfo, planDate]);
 
   const checkData = () => {
     planInfo.map((plan) => {
@@ -38,11 +36,6 @@ const CalendarDetail = () => {
       }
     });
   };
-
-  useEffect(() => {
-    setPlanDate(statePlanDate);
-    setCalendarPlan([]);
-  }, [statePlanDate]);
 
   const editPlan = () => {
     dispatch(planDataActions.editPlanFlg({ planEditFlg: true }));

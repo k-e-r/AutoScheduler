@@ -88,13 +88,6 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
           <p className='planbox__plan'>{plan.desc}</p>
         </div>
       ))}
-      {/* {plan ? (
-        <p className='planbox__plan' onClick={() => planDetail(plan)}>
-          {plan}
-        </p>
-      ) : (
-        <p className='planbox__plan'>CalendarPlanBox</p>
-      )} */}
     </div>
   );
 };
