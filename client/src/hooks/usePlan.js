@@ -10,7 +10,6 @@ import {
 } from './request';
 import { planDataActions } from '../store/planData-slice';
 import { categoryListActions } from '../store/categoryList-slice';
-import forgettingCurve from '../config';
 import usePlanFunc from './usePlanFunc';
 
 const usePlan = () => {

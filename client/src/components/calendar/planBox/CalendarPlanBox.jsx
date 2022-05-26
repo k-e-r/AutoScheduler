@@ -35,6 +35,7 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
                 _id: plan._id,
                 category: color,
                 desc: plan.desc,
+                completed: plan.completed,
               },
             ];
           }
@@ -64,6 +65,7 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
             idx: showMonth.findIndex((el) => el === checkDay.getDate()),
             category: plan.category,
             desc: plan.description,
+            completed: plan.completed,
           },
         ]);
       } else {
@@ -74,6 +76,7 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
             idx: showMonth.lastIndexOf(checkDay.getDate()),
             category: plan.category,
             desc: plan.description,
+            completed: plan.completed,
           },
         ]);
       }
@@ -83,9 +86,14 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
   return (
     <div className='planbox__wrapper'>
       {calendarPlan.map((plan, idx) => (
-        <div className='planbox__plan-wrapper' key={idx}>
+        <div
+          className={`planbox__plan-wrapper ${
+            plan.completed ? 'planbox__plan-wrapper-done' : ''
+          }`}
+          key={idx}
+        >
           <span style={{ backgroundColor: plan.category }}></span>
-          <p className='planbox__plan'>{plan.desc}</p>
+          <p className={`planbox__plan`}>{plan.desc}</p>
         </div>
       ))}
     </div>
