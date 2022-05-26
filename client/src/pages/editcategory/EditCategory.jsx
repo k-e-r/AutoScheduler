@@ -28,20 +28,13 @@ function EditCategory() {
     <>
       <div className='editcategory__back' onClick={() => popupClose()} />
       <div className='editcategory__card'>
-        {/* <form className='editcategory__form'>
-          <span style={{ backgroundColor: 'rgb(255 165 66)' }}></span>
-          <input type='text' name={`category-List`} />
-          <Edit
-            type='submit'
-            className='editcategory__form__icon'
-            size={25}
-            strokeWidth={1.2}
-            onClick={testHandle}
-          />
-        </form> */}
         <Category category='' color='' mode={true} id={_id} />
-        <input type='hidden' name='_id' value={_id} />
-        <form onSubmit={editCategory} className='editcategory__form'>
+        <form
+          onSubmit={editCategory}
+          autoComplete='off'
+          className='editcategory__form'
+        >
+          <input type='hidden' name='_id' value={_id} />
           {categoryList.map((category, idx) => (
             <Category
               category={category}

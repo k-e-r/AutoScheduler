@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Trash, Edit } from 'tabler-icons-react';
 
 import { SketchPicker } from 'react-color';
@@ -7,11 +7,13 @@ import usePlan from '../../hooks/usePlan';
 import './Category.scss';
 
 const Category = ({ category, color, mode, id }) => {
+  const refAddCategory = useRef();
+  const refAddColor = useRef();
   const [sketchPickerColor, setSketchPickerColor] = useState(
     color ? color : '#ef93b6'
   );
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const { deleteCategory } = usePlan();
+  const { addCategory, deleteCategory } = usePlan();
   let clickCount = 0;
 
   const displayChange = () => {
@@ -24,7 +26,20 @@ const Category = ({ category, color, mode, id }) => {
     if (clickCount < 2) {
       setTimeout(() => {
         if (clickCount > 1) {
-          deleteCategory({ id, category });
+          // if (mode) addCategory({ id, category, color });
+          if (!mode) deleteCategory({ id, category });
+        } else {
+          if (mode) {
+            console.log(
+              refAddCategory.current.value,
+              refAddColor.current.value
+            );
+            const categoryData = refAddCategory.current.value;
+            const colorData = refAddColor.current.value;
+            addCategory({ id, categoryData, colorData });
+            refAddCategory.current.value = '';
+            setSketchPickerColor('#ef93b6');
+          }
         }
         clickCount = 0;
       }, 200);
@@ -58,6 +73,7 @@ const Category = ({ category, color, mode, id }) => {
         name={`category-color`}
         value={sketchPickerColor}
         className='editcategory__form__input'
+        ref={refAddColor}
       />
       <label
         htmlFor='category-List'
@@ -71,6 +87,8 @@ const Category = ({ category, color, mode, id }) => {
         defaultValue={category}
         className='editcategory__form__input'
         required
+        autoComplete='off'
+        ref={refAddCategory}
       />
       {mode ? (
         <Edit
