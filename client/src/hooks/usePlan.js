@@ -1,26 +1,67 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
-  httpGetCategories,
   httpGetPlans,
   httpSubmitPlan,
   httpEditPlan,
-  httpEditCategory,
   httpDeletePlan,
   httpSearchDeletePlan,
-} from './request';
+} from './requestPlan';
 import { planDataActions } from '../store/planData-slice';
-import { categoryListActions } from '../store/categoryList-slice';
 import usePlanFunc from './usePlanFunc';
+let startDate;
+let endDate;
 
 const usePlan = () => {
   const dispatch = useDispatch();
   const { repeatSetPlan } = usePlanFunc();
-  const startDate = useSelector((state) => state.searchDate.startDate);
-  const endDate = useSelector((state) => state.searchDate.endDate);
-  const category = [...useSelector((state) => state.categoryList.categoryList)];
-  const color = [
-    ...useSelector((state) => state.categoryList.categoryColorList),
-  ];
+
+  const getPlans = async ({ baseDate, showMonth }) => {
+    if (showMonth[0] !== 1) {
+      // prevMonth
+      if (baseDate.getMonth() === 0) {
+        // Jan
+        startDate =
+          baseDate.getFullYear() - 1 + '-12-' + ('0' + showMonth[0]).slice(-2);
+      } else {
+        // !Jan
+        startDate =
+          baseDate.getFullYear() +
+          '-' +
+          ('0' + baseDate.getMonth()).slice(-2) +
+          '-' +
+          ('0' + showMonth[0]).slice(-2);
+      }
+    } else {
+      // this month
+      startDate =
+        baseDate.getFullYear() +
+        '-' +
+        ('0' + (baseDate.getMonth() + 1)).slice(-2) +
+        '-01';
+    }
+    if (baseDate.getMonth() === 11) {
+      // Dec
+      endDate =
+        baseDate.getFullYear() +
+        1 +
+        '-01-' +
+        ('0' + showMonth[showMonth.length - 1]).slice(-2);
+    } else {
+      // !Dec
+      endDate =
+        baseDate.getFullYear() +
+        '-' +
+        ('0' + (baseDate.getMonth() + 2)).slice(-2) +
+        '-' +
+        ('0' + showMonth[showMonth.length - 1]).slice(-2);
+    }
+    const fetchedPlans = await httpGetPlans(startDate, endDate);
+    dispatch(
+      planDataActions.setPlanInfo({
+        planInfo: fetchedPlans.plan,
+      })
+    );
+  };
 
   const submitPlan = async (e) => {
     e.preventDefault();
@@ -118,75 +159,10 @@ const usePlan = () => {
     }
   };
 
-  const editCategory = async (e) => {
-    e.preventDefault();
-    const data = new FormData(e.target);
-    let id,
-      color = [],
-      category = [];
-    for (let d of data.entries()) {
-      if (d[0] === '_id') id = d[1];
-      else if (d[0] === 'category-color') color.push(d[1]);
-      else if (d[0] === 'category-List') category.push(d[1]);
-    }
-    const response = await httpEditCategory(id, {
-      category,
-      color,
-    });
-
-    const success = response.ok;
-    if (success) {
-      const fetchedCategories = await httpGetCategories();
-      dispatch(
-        categoryListActions.setCategoryList(fetchedCategories.category[0])
-      );
-    }
-    dispatch(
-      categoryListActions.setCategoryEditFlg({ categoryEditFlg: false })
-    );
-  };
-
-  const addCategory = async ({ id, categoryData, colorData }) => {
-    category.push(categoryData);
-    color.push(colorData);
-    const response = await httpEditCategory(id, {
-      category,
-      color,
-    });
-
-    const success = response.ok;
-    if (success) {
-      const fetchedCategories = await httpGetCategories();
-      dispatch(
-        categoryListActions.setCategoryList(fetchedCategories.category[0])
-      );
-    }
-  };
-
-  const deleteCategory = async ({ id, delCategory }) => {
-    const delIdx = category.findIndex((el) => el === delCategory);
-    category.splice(delIdx, 1);
-    color.splice(delIdx, 1);
-    const response = await httpEditCategory(id, {
-      category,
-      color,
-    });
-
-    const success = response.ok;
-    if (success) {
-      const fetchedCategories = await httpGetCategories();
-      dispatch(
-        categoryListActions.setCategoryList(fetchedCategories.category[0])
-      );
-    }
-  };
-
   return {
+    getPlans,
     submitPlan,
     editPlan,
-    editCategory,
-    addCategory,
-    deleteCategory,
     deletePlan,
   };
 };

@@ -1,87 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { planDataActions } from '../../../store/planData-slice';
-import { searchDateActions } from '../../../store/searchDate-slice';
-import { categoryListActions } from '../../../store/categoryList-slice';
 
 import './CalendarBody.scss';
 
 import CalendarDayBox from '../dayBox/CalendarDayBox';
-import { httpGetPlans, httpGetCategories } from '../../../hooks/request';
-
+import usePlan from '../../../hooks/usePlan';
+import useCategory from '../../../hooks/useCategory';
 const dayOfWeekStr = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const CalendarBody = ({ baseDate, showMonth }) => {
-  const dispatch = useDispatch();
+  const { getPlans } = usePlan();
+  const { getCategory } = useCategory();
   const [colorIdx, setColorIdx] = useState(new Date().getDate() - 1);
 
   const changeColorIdx = (idx) => {
     setColorIdx(idx);
   };
 
-  const getPlans = async () => {
-    let startDate, endDate;
-    if (showMonth[0] !== 1) {
-      // prevMonth
-      if (baseDate.getMonth() === 0) {
-        // Jan
-        startDate =
-          baseDate.getFullYear() - 1 + '-12-' + ('0' + showMonth[0]).slice(-2);
-      } else {
-        // !Jan
-        startDate =
-          baseDate.getFullYear() +
-          '-' +
-          ('0' + baseDate.getMonth()).slice(-2) +
-          '-' +
-          ('0' + showMonth[0]).slice(-2);
-      }
-    } else {
-      // this month
-      startDate =
-        baseDate.getFullYear() +
-        '-' +
-        ('0' + (baseDate.getMonth() + 1)).slice(-2) +
-        '-01';
-    }
-    if (baseDate.getMonth() === 11) {
-      // Dec
-      endDate =
-        baseDate.getFullYear() +
-        1 +
-        '-01-' +
-        ('0' + showMonth[showMonth.length - 1]).slice(-2);
-    } else {
-      // !Dec
-      endDate =
-        baseDate.getFullYear() +
-        '-' +
-        ('0' + (baseDate.getMonth() + 2)).slice(-2) +
-        '-' +
-        ('0' + showMonth[showMonth.length - 1]).slice(-2);
-    }
-    // console.log('startDate', startDate, 'endDate', endDate);
-    const fetchedCategories = await httpGetCategories();
-    dispatch(
-      categoryListActions.setCategoryList(fetchedCategories.category[0])
-    );
-    const fetchedPlans = await httpGetPlans(startDate, endDate);
-    dispatch(
-      planDataActions.setPlanInfo({
-        planInfo: fetchedPlans.plan,
-      })
-    );
-    dispatch(
-      searchDateActions.setSearchDate({
-        startDate,
-        endDate,
-      })
-    );
-  };
-
   useEffect(() => {
-    getPlans();
-  }, [baseDate]);
+    getPlans({ baseDate, showMonth });
+    getCategory();
+  }, [baseDate, showMonth]);
 
   return (
     <div className='calendar__body'>

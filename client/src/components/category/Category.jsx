@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { Trash, Edit } from 'tabler-icons-react';
 
 import { SketchPicker } from 'react-color';
-import usePlan from '../../hooks/usePlan';
+import useCategory from '../../hooks/useCategory';
 
 import './Category.scss';
 
@@ -13,7 +13,7 @@ const Category = ({ category, color, mode, id }) => {
     color ? color : '#ef93b6'
   );
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const { addCategory, deleteCategory } = usePlan();
+  const { addCategory, deleteCategory } = useCategory();
   let clickCount = 0;
 
   const displayChange = () => {

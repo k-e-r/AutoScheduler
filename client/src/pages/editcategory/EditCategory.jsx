@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { categoryListActions } from '../../store/categoryList-slice';
-import usePlan from '../../hooks/usePlan';
+import useCategory from '../../hooks/useCategory';
 
 import './EditCategory.scss';
 import Category from '../../components/category/Category';
 
 function EditCategory() {
   const dispatch = useDispatch();
-  const { editCategory } = usePlan();
+  const { editCategory } = useCategory();
   const categoryList = useSelector((state) => state.categoryList.categoryList);
   const categoryColorList = useSelector(
     (state) => state.categoryList.categoryColorList

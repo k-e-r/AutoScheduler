@@ -13,6 +13,7 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
     (state) => state.categoryList.categoryColorList
   );
   const [categoryColor, setCategoryColor] = useState(stateCategoryColor);
+  const [changeFlg, setChangeFlg] = useState(false);
 
   // {idx: 8, desc: 'test'}
   useEffect(() => {
@@ -44,6 +45,8 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
   }, [calendarPlans]);
 
   useEffect(() => {
+    if (statePlanInfo.length !== 0 && stateCategoryColor.length !== 0)
+      setChangeFlg(true);
     setPlanInfo(statePlanInfo);
     setCategoryColor(stateCategoryColor);
     setCalendarPlan([]);
@@ -51,10 +54,7 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
   }, [statePlanInfo, stateCategoryColor]);
 
   useEffect(() => {
-    setPlan();
-  }, [planInfo]);
-
-  const setPlan = () => {
+    setChangeFlg(false);
     planInfo.map((plan) => {
       const checkDay = new Date(plan.date);
       if (baseDate.getMonth() >= checkDay.getMonth()) {
@@ -81,7 +81,7 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
         ]);
       }
     });
-  };
+  }, [changeFlg]);
 
   return (
     <div className='planbox__wrapper'>

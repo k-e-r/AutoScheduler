@@ -1,4 +1,4 @@
-import { httpSubmitPlan } from './request';
+import { httpSubmitPlan } from './requestPlan';
 import forgettingCurve from '../config';
 
 const usePlanFunc = () => {

@@ -19,10 +19,6 @@ const CalendarDetail = () => {
   }, [statePlanInfo, statePlanDate]);
 
   useEffect(() => {
-    checkData();
-  }, [planInfo, planDate]);
-
-  const checkData = () => {
     planInfo.map((plan) => {
       if (plan.date.split('T')[0] === planDate.split('T')[0]) {
         setCalendarPlan((prev) => [
@@ -33,7 +29,7 @@ const CalendarDetail = () => {
         ]);
       }
     });
-  };
+  }, [planInfo, planDate]);
 
   return (
     <div className='cal__detail__wrapper'>
