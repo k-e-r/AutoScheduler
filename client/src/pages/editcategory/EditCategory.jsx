@@ -39,6 +39,7 @@ function EditCategory() {
             onClick={testHandle}
           />
         </form> */}
+        <Category category='' color='' mode={true} id={_id} />
         <input type='hidden' name='_id' value={_id} />
         <form onSubmit={editCategory} className='editcategory__form'>
           {categoryList.map((category, idx) => (
@@ -46,6 +47,7 @@ function EditCategory() {
               category={category}
               color={categoryColorList[idx]}
               id={_id}
+              mode={false}
               key={idx}
             />
           ))}

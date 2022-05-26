@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { Trash } from 'tabler-icons-react';
+import { Trash, Edit } from 'tabler-icons-react';
 
 import { SketchPicker } from 'react-color';
 import usePlan from '../../hooks/usePlan';
 
 import './Category.scss';
 
-const Category = ({ category, color, id }) => {
-  const [sketchPickerColor, setSketchPickerColor] = useState(color);
+const Category = ({ category, color, mode, id }) => {
+  const [sketchPickerColor, setSketchPickerColor] = useState(
+    color ? color : '#ef93b6'
+  );
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
   const { deleteCategory } = usePlan();
   let clickCount = 0;
@@ -70,12 +72,21 @@ const Category = ({ category, color, id }) => {
         className='editcategory__form__input'
         required
       />
-      <Trash
-        className='editcategory__form__icon'
-        size={25}
-        strokeWidth={1.2}
-        onClick={() => handleSingleOrDoubleClick()}
-      />
+      {mode ? (
+        <Edit
+          className='editcategory__form__iconEdit'
+          size={25}
+          strokeWidth={1.7}
+          onClick={() => handleSingleOrDoubleClick()}
+        />
+      ) : (
+        <Trash
+          className='editcategory__form__iconDelete'
+          size={25}
+          strokeWidth={1.7}
+          onClick={() => handleSingleOrDoubleClick()}
+        />
+      )}
     </div>
   );
 };
