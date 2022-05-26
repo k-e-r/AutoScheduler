@@ -45,6 +45,7 @@ function EditCategory() {
             <Category
               category={category}
               color={categoryColorList[idx]}
+              id={_id}
               key={idx}
             />
           ))}

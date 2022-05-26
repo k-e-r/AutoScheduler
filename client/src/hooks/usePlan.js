@@ -1,11 +1,22 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { httpSubmitPlan, httpGetPlans, httpEditPlan } from './request';
+import {
+  httpGetCategories,
+  httpGetPlans,
+  httpSubmitPlan,
+  httpEditPlan,
+  httpEditCategory,
+} from './request';
 import { planDataActions } from '../store/planData-slice';
+import { categoryListActions } from '../store/categoryList-slice';
 
 const usePlan = () => {
   const dispatch = useDispatch();
   const startDate = useSelector((state) => state.searchDate.startDate);
   const endDate = useSelector((state) => state.searchDate.endDate);
+  const category = [...useSelector((state) => state.categoryList.categoryList)];
+  const color = [
+    ...useSelector((state) => state.categoryList.categoryColorList),
+  ];
 
   const submitPlan = async (e) => {
     e.preventDefault();
@@ -94,10 +105,29 @@ const usePlan = () => {
     // dispatch(planDataActions.editPlanInfo({ planEditInfo: '' }));
   };
 
+  const deleteCategory = async ({ id, delCategory }) => {
+    const delIdx = category.findIndex((el) => el === delCategory);
+    category.splice(delIdx, 1);
+    color.splice(delIdx, 1);
+    const response = await httpEditCategory(id, {
+      category,
+      color,
+    });
+
+    const success = response.ok;
+    if (success) {
+      const fetchedCategories = await httpGetCategories();
+      dispatch(
+        categoryListActions.setCategoryList(fetchedCategories.category[0])
+      );
+    }
+  };
+
   return {
     submitPlan,
     editPlan,
     editCategory,
+    deleteCategory,
   };
 };
 

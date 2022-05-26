@@ -2,16 +2,31 @@ import { useState } from 'react';
 import { Trash } from 'tabler-icons-react';
 
 import { SketchPicker } from 'react-color';
+import usePlan from '../../hooks/usePlan';
 
 import './Category.scss';
 
-const Category = ({ category, color }) => {
+const Category = ({ category, color, id }) => {
   const [sketchPickerColor, setSketchPickerColor] = useState(color);
-  console.log(sketchPickerColor);
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
+  const { deleteCategory } = usePlan();
+  let clickCount = 0;
 
   const displayChange = () => {
     setDisplayColorPicker((prev) => !prev);
+  };
+
+  const handleSingleOrDoubleClick = () => {
+    clickCount++;
+
+    if (clickCount < 2) {
+      setTimeout(() => {
+        if (clickCount > 1) {
+          deleteCategory({ id, category });
+        }
+        clickCount = 0;
+      }, 200);
+    }
   };
 
   return (
@@ -55,7 +70,12 @@ const Category = ({ category, color }) => {
         className='editcategory__form__input'
         required
       />
-      <Trash className='editcategory__form__icon' size={25} strokeWidth={1.2} />
+      <Trash
+        className='editcategory__form__icon'
+        size={25}
+        strokeWidth={1.2}
+        onClick={() => handleSingleOrDoubleClick()}
+      />
     </div>
   );
 };
