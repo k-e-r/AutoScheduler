@@ -6,6 +6,7 @@ import {
   httpEditPlan,
   httpEditCategory,
   httpDeletePlan,
+  httpSearchDeletePlan,
 } from './request';
 import { planDataActions } from '../store/planData-slice';
 import { categoryListActions } from '../store/categoryList-slice';
@@ -19,7 +20,6 @@ const usePlan = () => {
   const color = [
     ...useSelector((state) => state.categoryList.categoryColorList),
   ];
-  const planInfo = [...useSelector((state) => state.planData.planInfo)];
 
   const submitPlan = async (e) => {
     e.preventDefault();
@@ -29,9 +29,8 @@ const usePlan = () => {
     const date = prevDate.setHours(prevDate.getHours() + timeOffset);
     const description = data.get('description');
     const category = data.get('category');
-    const mode = data.get('mode') === null ? false : data.get('mode');
-    const completed =
-      data.get('completed') === null ? false : data.get('completed');
+    const mode = data.get('mode') === null ? false : true;
+    const completed = data.get('completed') === null ? false : true;
     const response = await httpSubmitPlan({
       date,
       description,
@@ -49,7 +48,6 @@ const usePlan = () => {
 
     let baseId;
     if (mode) {
-      // setTimeout(() => {
       fetchedPlans.plan.forEach((val) => {
         if (val.date.split('T')[0] === data.get('plan-date')) {
           if (val.category === category) {
@@ -59,7 +57,6 @@ const usePlan = () => {
           }
         }
       });
-      console.log(baseId);
 
       const baseDate = date,
         baseDesc = description;
@@ -81,10 +78,8 @@ const usePlan = () => {
       dispatch(
         planDataActions.setPlanInfo({ planInfo: fetchedAfterPlans.plan })
       );
-      console.log(fetchedAfterPlans);
-      // }, 500);
     }
-    // dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
+    dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
 
   const editPlan = async (e) => {
@@ -92,13 +87,14 @@ const usePlan = () => {
     const timeOffset = new Date().getTimezoneOffset() / 60;
     const data = new FormData(e.target);
     const _id = data.get('_id');
+    const baseId = data.get('baseId');
+    const prevMode = data.get('prevMode') === 'true' ? true : false;
     const prevDate = new Date(data.get('plan-date'));
     const date = prevDate.setHours(prevDate.getHours() + timeOffset);
     const description = data.get('description');
     const category = data.get('category');
-    const mode = data.get('mode') === null ? false : data.get('mode');
-    const completed =
-      data.get('completed') === null ? false : data.get('completed');
+    const mode = data.get('mode') === null ? false : true;
+    const completed = data.get('completed') === null ? false : true;
     const response = await httpEditPlan(_id, {
       date,
       description,
@@ -106,6 +102,26 @@ const usePlan = () => {
       mode,
       completed,
     });
+
+    if (prevMode && !mode) {
+      await httpSearchDeletePlan(baseId ? baseId : _id, date);
+    } else if (prevMode === false && mode) {
+      const baseDate = date,
+        baseDesc = description;
+      forgettingCurve.forEach(async (val, times) => {
+        const date = baseDate + val * 24 * 60 * 60 * 1000;
+        const description = `${baseDesc} (${times + 1})`;
+        await httpSubmitPlan({
+          date,
+          description,
+          category,
+          mode,
+          completed,
+          baseId,
+          times,
+        });
+      });
+    }
 
     const success = response.ok;
     if (success) {

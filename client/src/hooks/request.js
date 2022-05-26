@@ -75,11 +75,31 @@ async function httpEditCategory(id, category) {
 // Delete plan data
 async function httpDeletePlan(id) {
   try {
-    return await fetch(`${API_URL}/plans/${id}`, {
+    return await fetch(`${API_URL}/plans/delete/${id}`, {
       method: 'delete',
       headers: {
         'Content-Type': 'application/json',
       },
+    });
+  } catch (err) {
+    return {
+      ok: false,
+    };
+  }
+}
+
+// Search & Delete plan data
+async function httpSearchDeletePlan(baseId, date) {
+  try {
+    return await fetch(`${API_URL}/plans/delete`, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        baseId: baseId,
+        date: date,
+      }),
     });
   } catch (err) {
     return {
@@ -95,4 +115,5 @@ export {
   httpEditPlan,
   httpEditCategory,
   httpDeletePlan,
+  httpSearchDeletePlan,
 };

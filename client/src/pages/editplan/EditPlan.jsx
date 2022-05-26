@@ -11,22 +11,22 @@ const EditPlan = () => {
   const dispatch = useDispatch();
   const { editPlan } = usePlan();
   const statePlanEditInfo = useSelector((state) => state.planData.planEditInfo);
-  const [planEditInfo, setPlanEditInfo] = useState(statePlanEditInfo);
   const categoryList = useSelector((state) => state.categoryList.categoryList);
-  const [mode, setMode] = useState(planEditInfo.mode);
-  const [comp, setComp] = useState(planEditInfo.completed);
+  const [mode, setMode] = useState(statePlanEditInfo.mode);
+  const [comp, setComp] = useState(statePlanEditInfo.completed);
 
-  const _id = planEditInfo._id;
-  const theDay = planEditInfo.date.split('T')[0];
-  const desc = planEditInfo.description;
-  const category = planEditInfo.category;
+  const baseId = statePlanEditInfo.baseId;
+  const prevMode = statePlanEditInfo.mode;
+  const _id = statePlanEditInfo._id;
+  const theDay = statePlanEditInfo.date.split('T')[0];
+  const desc = statePlanEditInfo.description;
+  const category = statePlanEditInfo.category;
 
   const popupClose = () => {
     dispatch(planDataActions.editPlanInfo({ planEditInfo: '' }));
   };
 
   const handleOnChange = (e) => {
-    console.log(e.target.id);
     if (e.target.id === 'mode') setMode((prev) => !prev);
     else setComp((prev) => !prev);
   };
@@ -37,6 +37,8 @@ const EditPlan = () => {
       <div className='editplan__card'>
         <form onSubmit={editPlan} className='editplan__form'>
           <input type='hidden' name='_id' value={_id} />
+          <input type='hidden' name='baseId' value={baseId} />
+          <input type='hidden' name='prevMode' value={prevMode} />
           <label htmlFor='plan-date'>Set Date</label>
           <input
             type='date'

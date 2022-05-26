@@ -6,6 +6,7 @@ const {
   getPlan,
   editPlan,
   deletePlan,
+  deleteBaseIdPlan,
 } = require('./plans.controller');
 
 const plansRouter = express.Router();
@@ -15,6 +16,7 @@ plansRouter.get('/', getPlans);
 plansRouter.post('/search', searchPlan);
 plansRouter.get('/search/:id', getPlan);
 plansRouter.put('/:id', editPlan);
-plansRouter.delete('/:id', deletePlan);
+plansRouter.delete('/delete/:id', deletePlan);
+plansRouter.delete('/delete', deleteBaseIdPlan);
 
 module.exports = plansRouter;
