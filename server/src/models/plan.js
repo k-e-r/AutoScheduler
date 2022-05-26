@@ -24,6 +24,13 @@ const planSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    baseId: {
+      type: mongoose.Schema.Types.ObjectId,
+    },
+    times: {
+      type: Number,
+      trim: true,
+    },
   },
   { timestamps: true }
 );

@@ -54,6 +54,7 @@ const EditPlan = () => {
             name='description'
             defaultValue={desc}
             required
+            autoComplete='off'
           />
           <label htmlFor='category'>Category</label>
           <select id='category' name='category' defaultValue={category}>

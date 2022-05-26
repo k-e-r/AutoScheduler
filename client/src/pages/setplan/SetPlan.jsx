@@ -42,7 +42,13 @@ const SetPlan = () => {
             required
           />
           <label htmlFor='description'>Description</label>
-          <input type='text' id='description' name='description' required />
+          <input
+            type='text'
+            id='description'
+            name='description'
+            required
+            autoComplete='off'
+          />
           <label htmlFor='category'>Category</label>
           <select id='category' name='category' defaultValue={categoryList[0]}>
             {categoryList.map((category) => (

@@ -9,6 +9,7 @@ import {
 } from './request';
 import { planDataActions } from '../store/planData-slice';
 import { categoryListActions } from '../store/categoryList-slice';
+import forgettingCurve from '../config';
 
 const usePlan = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const usePlan = () => {
   const color = [
     ...useSelector((state) => state.categoryList.categoryColorList),
   ];
+  const planInfo = [...useSelector((state) => state.planData.planInfo)];
 
   const submitPlan = async (e) => {
     e.preventDefault();
@@ -42,6 +44,40 @@ const usePlan = () => {
     if (success) {
       const fetchedPlans = await httpGetPlans(startDate, endDate);
       dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
+    }
+
+    let baseId;
+    if (mode) {
+      console.log('planInfo', data.get('plan-date'));
+      planInfo.forEach((val) => {
+        if (val.date.split('T')[0] === data.get('plan-date')) {
+          if (val.category === category) {
+            if (val.description === description) {
+              baseId = val._id;
+            }
+          }
+        }
+      });
+
+      const baseDate = date,
+        baseDesc = description;
+      forgettingCurve.forEach(async (val, times) => {
+        const date = baseDate + val * 24 * 60 * 60 * 1000;
+        const description = `${baseDesc} (${times + 1})`;
+        await httpSubmitPlan({
+          date,
+          description,
+          category,
+          mode,
+          completed,
+          baseId,
+          times,
+        });
+      });
+
+      const fetchedPlans = await httpGetPlans(startDate, endDate);
+      dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
+      console.log(fetchedPlans);
     }
     dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
