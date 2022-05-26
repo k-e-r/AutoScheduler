@@ -72,10 +72,27 @@ async function httpEditCategory(id, category) {
   }
 }
 
+// Delete plan data
+async function httpDeletePlan(id) {
+  try {
+    return await fetch(`${API_URL}/plans/${id}`, {
+      method: 'delete',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  } catch (err) {
+    return {
+      ok: false,
+    };
+  }
+}
+
 export {
   httpGetCategories,
   httpGetPlans,
   httpSubmitPlan,
   httpEditPlan,
   httpEditCategory,
+  httpDeletePlan,
 };

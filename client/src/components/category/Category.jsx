@@ -26,7 +26,6 @@ const Category = ({ category, color, mode, id }) => {
     if (clickCount < 2) {
       setTimeout(() => {
         if (clickCount > 1) {
-          // if (mode) addCategory({ id, category, color });
           if (!mode) deleteCategory({ id, category });
         } else {
           if (mode) {

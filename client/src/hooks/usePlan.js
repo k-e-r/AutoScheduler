@@ -5,6 +5,7 @@ import {
   httpSubmitPlan,
   httpEditPlan,
   httpEditCategory,
+  httpDeletePlan,
 } from './request';
 import { planDataActions } from '../store/planData-slice';
 import { categoryListActions } from '../store/categoryList-slice';
@@ -71,6 +72,16 @@ const usePlan = () => {
       dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
     }
     dispatch(planDataActions.editPlanInfo({ planEditInfo: '' }));
+  };
+
+  const deletePlan = async ({ id }) => {
+    const response = await httpDeletePlan(id);
+
+    const success = response.ok;
+    if (success) {
+      const fetchedPlans = await httpGetPlans(startDate, endDate);
+      dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
+    }
   };
 
   const editCategory = async (e) => {
@@ -142,6 +153,7 @@ const usePlan = () => {
     editCategory,
     addCategory,
     deleteCategory,
+    deletePlan,
   };
 };
 
