@@ -11,9 +11,11 @@ import {
 import { planDataActions } from '../store/planData-slice';
 import { categoryListActions } from '../store/categoryList-slice';
 import forgettingCurve from '../config';
+import usePlanFunc from './usePlanFunc';
 
 const usePlan = () => {
   const dispatch = useDispatch();
+  const { repeatSetPlan } = usePlanFunc();
   const startDate = useSelector((state) => state.searchDate.startDate);
   const endDate = useSelector((state) => state.searchDate.endDate);
   const category = [...useSelector((state) => state.categoryList.categoryList)];
@@ -46,34 +48,16 @@ const usePlan = () => {
       dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
     }
 
-    let baseId;
     if (mode) {
-      fetchedPlans.plan.forEach((val) => {
-        if (val.date.split('T')[0] === data.get('plan-date')) {
-          if (val.category === category) {
-            if (val.description === description) {
-              baseId = val._id;
-            }
-          }
-        }
+      repeatSetPlan({
+        fetchedPlans,
+        data,
+        category,
+        description,
+        date,
+        mode,
+        completed,
       });
-
-      const baseDate = date,
-        baseDesc = description;
-      forgettingCurve.forEach(async (val, times) => {
-        const date = baseDate + val * 24 * 60 * 60 * 1000;
-        const description = `${baseDesc} (${times + 1})`;
-        await httpSubmitPlan({
-          date,
-          description,
-          category,
-          mode,
-          completed,
-          baseId,
-          times,
-        });
-      });
-
       const fetchedAfterPlans = await httpGetPlans(startDate, endDate);
       dispatch(
         planDataActions.setPlanInfo({ planInfo: fetchedAfterPlans.plan })
@@ -87,7 +71,7 @@ const usePlan = () => {
     const timeOffset = new Date().getTimezoneOffset() / 60;
     const data = new FormData(e.target);
     const _id = data.get('_id');
-    const baseId = data.get('baseId');
+    const baseId = data.get('baseId') ? data.get('baseId') : _id;
     const prevMode = data.get('prevMode') === 'true' ? true : false;
     const prevDate = new Date(data.get('plan-date'));
     const date = prevDate.setHours(prevDate.getHours() + timeOffset);
@@ -104,22 +88,16 @@ const usePlan = () => {
     });
 
     if (prevMode && !mode) {
-      await httpSearchDeletePlan(baseId ? baseId : _id, date);
+      await httpSearchDeletePlan(baseId, date);
     } else if (prevMode === false && mode) {
-      const baseDate = date,
-        baseDesc = description;
-      forgettingCurve.forEach(async (val, times) => {
-        const date = baseDate + val * 24 * 60 * 60 * 1000;
-        const description = `${baseDesc} (${times + 1})`;
-        await httpSubmitPlan({
-          date,
-          description,
-          category,
-          mode,
-          completed,
-          baseId,
-          times,
-        });
+      repeatSetPlan({
+        data,
+        category,
+        description,
+        date,
+        mode,
+        completed,
+        baseId,
       });
     }
 
