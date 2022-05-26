@@ -41,15 +41,16 @@ const usePlan = () => {
     });
 
     const success = response.ok;
+    let fetchedPlans;
     if (success) {
-      const fetchedPlans = await httpGetPlans(startDate, endDate);
+      fetchedPlans = await httpGetPlans(startDate, endDate);
       dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
     }
 
     let baseId;
     if (mode) {
-      console.log('planInfo', data.get('plan-date'));
-      planInfo.forEach((val) => {
+      // setTimeout(() => {
+      fetchedPlans.plan.forEach((val) => {
         if (val.date.split('T')[0] === data.get('plan-date')) {
           if (val.category === category) {
             if (val.description === description) {
@@ -58,6 +59,7 @@ const usePlan = () => {
           }
         }
       });
+      console.log(baseId);
 
       const baseDate = date,
         baseDesc = description;
@@ -75,11 +77,14 @@ const usePlan = () => {
         });
       });
 
-      const fetchedPlans = await httpGetPlans(startDate, endDate);
-      dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
-      console.log(fetchedPlans);
+      const fetchedAfterPlans = await httpGetPlans(startDate, endDate);
+      dispatch(
+        planDataActions.setPlanInfo({ planInfo: fetchedAfterPlans.plan })
+      );
+      console.log(fetchedAfterPlans);
+      // }, 500);
     }
-    dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
+    // dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
 
   const editPlan = async (e) => {

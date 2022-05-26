@@ -25,7 +25,7 @@ const planSchema = new mongoose.Schema(
       default: false,
     },
     baseId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
     },
     times: {
       type: Number,
