@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './AuthLogin.scss';
 
 import useAuth from '../../hooks/useAuth';
 
 const AuthLogin = () => {
-  const { authLogin } = useAuth();
+  const [isLogin, setIsLogin] = useState(true);
+  const { authLogin, authRegister } = useAuth();
+
+  const switchAuthModeHandler = () => {
+    setIsLogin((prevState) => !prevState);
+  };
 
   return (
     <div className='authlogin__wrapper'>
@@ -14,12 +19,21 @@ const AuthLogin = () => {
           <p className='authlogin__box__logo-p'>LOGO</p>
         </div>
         <div className='authlogin__box__welcome'>
-          <p className='authlogin__box__welcome-p'>Hi, Welcome Back</p>
+          <p className='authlogin__box__welcome-p'>
+            {isLogin ? 'Hi, Welcome Back' : 'Sign up'}
+          </p>
         </div>
         <div className='authlogin__box__msg'>
-          <p className='authlogin__box__msg-p'>Sign in with Email address</p>
+          <p className='authlogin__box__msg-p'>
+            {isLogin
+              ? 'Login with Email address'
+              : 'Sign up with Email address'}
+          </p>
         </div>
-        <form onSubmit={authLogin} className='authlogin__box__form'>
+        <form
+          onSubmit={isLogin ? authLogin : authRegister}
+          className='authlogin__box__form'
+        >
           <div className='authlogin__box__form-emailbox'>
             <label htmlFor='email'>Email Address</label>
             <input
@@ -42,9 +56,15 @@ const AuthLogin = () => {
               autoComplete='off'
             />
           </div>
-          <button type='submit'>Sign In</button>
+          <button type='submit'>{isLogin ? 'Login' : 'Sign up'}</button>
         </form>
-        <div className='authlogin__box__registerBtn'>Register</div>
+        <button
+          type='button'
+          className='authlogin__box__toggleBtn'
+          onClick={switchAuthModeHandler}
+        >
+          {isLogin ? 'Create new account' : 'Login with existing account'}
+        </button>
       </div>
     </div>
   );

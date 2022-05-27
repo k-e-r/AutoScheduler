@@ -39,15 +39,12 @@
     }
 
     &__form {
-      // margin: 4rem 2rem 2rem;
-      // padding: 1.5rem;
       color: #616161;
       margin-bottom: 2rem;
       display: grid;
       grid-template-rows: repeat(2, 1fr) 3rem;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 1.5rem;
-      // padding: 1.5rem;
       align-items: center;
       width: 100%;
 
@@ -92,8 +89,6 @@
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        // background-color: #fff;
-        // color: #616161;
         color: #fff;
         background-color: rgb(121, 79, 195);
         font-size: 0.9rem;
@@ -109,21 +104,20 @@
           background-color: rgb(121, 79, 195);
         }
       }
+    }
 
-      // &__icon {
-      //   grid-column: 2 / span 2;
-      //   margin: 0 auto;
-      //   cursor: pointer;
-      //   width: 20px;
-      //   height: 20px;
-      //   stroke-width: 3;
+    &__toggleBtn {
+      border: none;
+      background-color: transparent;
+      font-size: 1rem;
+      color: rgb(100, 100, 100);
+      cursor: pointer;
 
-      //   @media only screen and (max-width: ($bp-smallest)) {
-      //     width: 18px;
-      //     height: 18px;
-      //     stroke-width: 2.5;
-      //   }
-      // }
+      &:hover {
+        background-color: transparent;
+        /* color: rgb(235, 235, 235); */
+        color: rgb(150, 150, 150);
+      }
     }
   }
 }

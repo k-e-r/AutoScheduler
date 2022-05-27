@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { httpLogin } from './requestAuth';
+import { httpLogin, httpRegister } from './requestAuth';
 
 import { authActions } from '../store/auth-slice';
 
@@ -26,8 +26,22 @@ const useAuth = () => {
     }
   };
 
+  const authRegister = async (e) => {
+    e.preventDefault();
+    const data = new FormData(e.target);
+    const email = data.get('email');
+    const password = data.get('password');
+    const response = await httpRegister({
+      email,
+      password,
+    });
+
+    console.log(response);
+  };
+
   return {
     authLogin,
+    authRegister,
   };
 };
 

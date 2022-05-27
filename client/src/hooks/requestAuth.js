@@ -11,21 +11,15 @@ async function httpLogin(userInfo) {
   return await response.json();
 }
 
-// Submit given plan data to plan system.
-// async function httpSubmitPlan(plan) {
-//   try {
-//     return await fetch(`${API_URL}/plans`, {
-//       method: 'post',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify(plan),
-//     });
-//   } catch (err) {
-//     return {
-//       ok: false,
-//     };
-//   }
-// }
+async function httpRegister(userInfo) {
+  const response = await fetch(`${API_URL}/user/register`, {
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userInfo),
+  });
+  return await response.json();
+}
 
-export { httpLogin };
+export { httpLogin, httpRegister };
