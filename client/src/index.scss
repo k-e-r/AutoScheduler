@@ -18,3 +18,9 @@ a {
   cursor: pointer;
   text-decoration: none;
 }
+
+input,
+select {
+  -webkit-appearance: none;
+  appearance: none;
+}

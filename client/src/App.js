@@ -28,14 +28,12 @@ const App = () => {
   return (
     <>
       <Routes>
-        {isLoggedIn && (
-          <Route path='*' element={<Navigate replace to='calendar' />} />
-        )}
+        {isLoggedIn && <Route path='*' element={<Navigate replace to='/' />} />}
         {!isLoggedIn && (
-          <Route path='*' element={<Navigate replace to='login' />} />
+          <Route path='*' element={<Navigate replace to='/' />} />
         )}
-        {isLoggedIn && <Route path='calendar' element={<Calendar />} />}
-        {!isLoggedIn && <Route path='login' element={<AuthLogin />} />}
+        {isLoggedIn && <Route path='/' element={<Calendar />} />}
+        {!isLoggedIn && <Route path='/' element={<AuthLogin />} />}
       </Routes>
       {planSetFlg && <PlanPopup planInfo={planEditInfo} />}
       {categoryEditFlg && <EditCategory />}
