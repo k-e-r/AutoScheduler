@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { planDataActions } from '../../../store/planData-slice';
 
@@ -19,6 +19,16 @@ const CalendarDayBox = ({
 
   const today = new Date().getDate();
   let markFlg = false;
+
+  useEffect(() => {
+    const date = new Date(
+      new Date().getFullYear(),
+      new Date().getMonth(),
+      new Date().getDate()
+    );
+    dispatch(planDataActions.setPlanDate({ planDate: date.toISOString() }));
+  }, []);
+
   if (baseDate.getMonth() === new Date().getMonth()) {
     if (baseDate.getFullYear() === new Date().getFullYear()) {
       markFlg = true;
