@@ -38,8 +38,6 @@ const useAuth = () => {
       password,
     });
 
-    console.log(response);
-
     if (response.userId !== undefined) {
       dispatch(
         authActions.login({
