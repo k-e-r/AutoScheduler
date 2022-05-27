@@ -20,7 +20,7 @@ const Sidebar = ({ open, onSidebarClose }) => {
         </div>
         <div className='sidebar__wrapper'>
           <span className='sidebar__wrapper-title'>Dashboard</span>
-          <a href='#' className='sidebar__wrapper-menu'>
+          <a href='/dashboard' className='sidebar__wrapper-menu'>
             <Dashboard
               size={25}
               strokeWidth={1.2}
@@ -32,7 +32,7 @@ const Sidebar = ({ open, onSidebarClose }) => {
         <hr className='sidebar__hr' />
         <div className='sidebar__wrapper'>
           <span className='sidebar__wrapper-title'>Calender</span>
-          <a href='#' className='sidebar__wrapper-menu'>
+          <a href='/calendar' className='sidebar__wrapper-menu'>
             <CalendarEvent
               size={25}
               strokeWidth={1.2}
