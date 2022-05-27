@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import Home from './pages/home/Home';
 import Calendar from './pages/calendar/Calendar';
@@ -20,8 +20,11 @@ const App = () => {
     <>
       {isLoggedIn && <Home />}
       <Routes>
-        {isLoggedIn && <Route path='/' element={<Calendar />} />}
-        {!isLoggedIn && <Route path='/' element={<AuthLogin />} />}
+        {isLoggedIn ? (
+          <Route path='/' element={<Calendar />} />
+        ) : (
+          <Route path='/' element={<AuthLogin />} />
+        )}
       </Routes>
       <PlanPopup />
       <EditCategory />
