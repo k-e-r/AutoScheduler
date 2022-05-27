@@ -23,6 +23,8 @@ const useAuth = () => {
           userEmail: email,
         })
       );
+    } else {
+      alert(response.msg, response.err);
     }
   };
 
@@ -37,6 +39,17 @@ const useAuth = () => {
     });
 
     console.log(response);
+
+    if (response.userId !== undefined) {
+      dispatch(
+        authActions.login({
+          userId: response.userId,
+          userEmail: response.email,
+        })
+      );
+    } else {
+      alert(response.msg);
+    }
   };
 
   return {

@@ -11,7 +11,8 @@ const setUser = (req, res) => {
     .then((result) => {
       res.status(201).json({
         msg: 'set user succeeded',
-        result,
+        email: result.email,
+        userId: result._id,
       });
     })
     .catch((err) => {

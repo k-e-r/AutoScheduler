@@ -11,7 +11,10 @@ const userRouter = require('./routes/user/user.router');
 const app = express();
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: [
+      'https://polar-lowlands-18778.herokuapp.com/',
+      'http://localhost:3000',
+    ],
   })
 );
 const PORT = process.env.PORT || 8000;
