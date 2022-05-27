@@ -3,6 +3,7 @@ import forgettingCurve from '../config';
 
 const usePlanFunc = () => {
   const repeatSetPlan = async ({
+    userId,
     fetchedPlans = '',
     data,
     category,
@@ -30,6 +31,7 @@ const usePlanFunc = () => {
       const date = baseDate + val * 24 * 60 * 60 * 1000;
       const description = `${baseDesc} (${times + 1})`;
       await httpSubmitPlan({
+        userId,
         date,
         description,
         category,

@@ -58,6 +58,7 @@ const searchPlan = (req, res) => {
 
   Plan.find(
     {
+      userId: keyword.userId,
       date: {
         $gte: new Date(keyword.start),
         $lte: new Date(keyword.end),

@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const planSchema = new mongoose.Schema(
   {
+    userId: {
+      type: String,
+      required: true,
+      trim: true,
+    },
     date: {
       type: Date,
       required: true,

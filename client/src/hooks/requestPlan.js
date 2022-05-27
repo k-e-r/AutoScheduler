@@ -7,13 +7,14 @@ async function httpGetCategories() {
 }
 
 // Load plans and return as JSON.
-async function httpGetPlans(startDate, endDate) {
+async function httpGetPlans(userId, startDate, endDate) {
   const response = await fetch(`${API_URL}/plans/search`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
+      userId,
       start: startDate,
       end: endDate,
     }),

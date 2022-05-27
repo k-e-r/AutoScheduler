@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   httpGetPlans,
   httpSubmitPlan,
@@ -14,6 +14,7 @@ let endDate;
 const usePlan = () => {
   const dispatch = useDispatch();
   const { repeatSetPlan } = usePlanFunc();
+  const userId = useSelector((state) => state.auth.userId);
 
   const getPlans = async ({ baseDate, showMonth }) => {
     if (showMonth[0] !== 1) {
@@ -55,7 +56,7 @@ const usePlan = () => {
         '-' +
         ('0' + showMonth[showMonth.length - 1]).slice(-2);
     }
-    const fetchedPlans = await httpGetPlans(startDate, endDate);
+    const fetchedPlans = await httpGetPlans(userId, startDate, endDate);
     dispatch(
       planDataActions.setPlanInfo({
         planInfo: fetchedPlans.plan,
@@ -74,6 +75,7 @@ const usePlan = () => {
     const mode = data.get('mode') === null ? false : true;
     const completed = data.get('completed') === null ? false : true;
     const response = await httpSubmitPlan({
+      userId,
       date,
       description,
       category,
@@ -84,12 +86,13 @@ const usePlan = () => {
     const success = response.ok;
     let fetchedPlans;
     if (success) {
-      fetchedPlans = await httpGetPlans(startDate, endDate);
+      fetchedPlans = await httpGetPlans(userId, startDate, endDate);
       dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
     }
 
     if (mode) {
       repeatSetPlan({
+        userId,
         fetchedPlans,
         data,
         category,
@@ -98,7 +101,7 @@ const usePlan = () => {
         mode,
         completed,
       });
-      const fetchedAfterPlans = await httpGetPlans(startDate, endDate);
+      const fetchedAfterPlans = await httpGetPlans(userId, startDate, endDate);
       dispatch(
         planDataActions.setPlanInfo({ planInfo: fetchedAfterPlans.plan })
       );
@@ -120,6 +123,7 @@ const usePlan = () => {
     const mode = data.get('mode') === null ? false : true;
     const completed = data.get('completed') === null ? false : true;
     const response = await httpEditPlan(_id, {
+      userId,
       date,
       description,
       category,
@@ -131,6 +135,7 @@ const usePlan = () => {
       await httpSearchDeletePlan(baseId, date);
     } else if (prevMode === false && mode) {
       repeatSetPlan({
+        userId,
         data,
         category,
         description,
@@ -143,10 +148,11 @@ const usePlan = () => {
 
     const success = response.ok;
     if (success) {
-      const fetchedPlans = await httpGetPlans(startDate, endDate);
+      const fetchedPlans = await httpGetPlans(userId, startDate, endDate);
       dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
     }
     dispatch(planDataActions.editPlanInfo({ planEditInfo: '' }));
+    dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
 
   const deletePlan = async ({ id }) => {
@@ -154,7 +160,7 @@ const usePlan = () => {
 
     const success = response.ok;
     if (success) {
-      const fetchedPlans = await httpGetPlans(startDate, endDate);
+      const fetchedPlans = await httpGetPlans(userId, startDate, endDate);
       dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
     }
   };
