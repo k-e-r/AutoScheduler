@@ -29,10 +29,6 @@ const Category = ({ category, color, mode, id }) => {
           if (!mode) deleteCategory({ id, category });
         } else {
           if (mode) {
-            console.log(
-              refAddCategory.current.value,
-              refAddColor.current.value
-            );
             const categoryData = refAddCategory.current.value;
             const colorData = refAddColor.current.value;
             addCategory({ id, categoryData, colorData });
