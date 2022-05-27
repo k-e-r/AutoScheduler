@@ -19,8 +19,12 @@ a {
   text-decoration: none;
 }
 
-input,
-select {
+input[type='button'],
+input[type='text'],
+input[type='submit'],
+input[type='image'],
+textarea {
   -webkit-appearance: none;
   appearance: none;
+  border-radius: 0;
 }
