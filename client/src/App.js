@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
-import { Route, Routes, Redirect } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
-import Home from './pages/home/Home';
 import Calendar from './pages/calendar/Calendar';
 import EditCategory from './pages/editcategory/EditCategory';
 import PlanPopup from './pages/planpopup/PlanPopup';
@@ -13,15 +12,19 @@ const App = () => {
   const categoryEditFlg = useSelector(
     (state) => state.categoryList.categoryEditFlg
   );
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <>
       <Routes>
-        <Route path='/login' element={<AuthLogin />} />
-        {/* <Route path='/home' component={Home}  /> */}
-        <Route path='/calendar' element={<Calendar />} />
-        {/* <Home />
-      <Calendar /> */}
+        {isLoggedIn && (
+          <Route path='*' element={<Navigate replace to='/calendar' />} />
+        )}
+        {!isLoggedIn && (
+          <Route path='*' element={<Navigate replace to='/login' />} />
+        )}
+        {isLoggedIn && <Route path='calendar' element={<Calendar />} />}
+        {!isLoggedIn && <Route path='login' element={<AuthLogin />} />}
         {planSetFlg && <PlanPopup planInfo={planEditInfo} />}
         {categoryEditFlg && <EditCategory />}
       </Routes>

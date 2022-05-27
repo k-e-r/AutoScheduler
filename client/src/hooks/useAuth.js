@@ -1,5 +1,8 @@
 import { useDispatch } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 import { httpLogin } from './requestAuth';
+
+import { authActions } from '../store/auth-slice';
 
 const useAuth = () => {
   const dispatch = useDispatch();
@@ -15,13 +18,14 @@ const useAuth = () => {
     });
 
     console.log('response', response.userId);
-
-    // const success = response.ok;
-    // let fetchedPlans;
-    // if (success) {
-    //   fetchedPlans = await httpGetPlans(startDate, endDate);
-    //   dispatch(planDataActions.setPlanInfo({ planInfo: fetchedPlans.plan }));
-    // }
+    if (response.userId !== undefined) {
+      dispatch(
+        authActions.login({
+          userId: response.userId,
+          userEmail: email,
+        })
+      );
+    }
   };
 
   return {
