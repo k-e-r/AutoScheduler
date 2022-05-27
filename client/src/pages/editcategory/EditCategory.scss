@@ -1,3 +1,5 @@
+@import '../../variables';
+
 .editcategory {
   &__back {
     position: fixed;
@@ -17,6 +19,15 @@
     background-color: #fff;
     border-radius: 15px;
     padding: 3rem 2rem 2rem;
+
+    @media only screen and (max-width: ($bp-small)) {
+      padding: 1rem;
+    }
+
+    @media only screen and (max-width: ($bp-smallest)) {
+      padding: 1rem;
+      padding-top: 2rem;
+    }
   }
 
   &__form {
@@ -34,6 +45,10 @@
       font-size: 1.1rem;
       font-weight: 550;
       transition: all 0.3s ease-in-out;
+
+      @media only screen and (max-width: ($bp-small)) {
+        font-size: 0.9rem;
+      }
 
       &:hover {
         color: rgb(94, 53, 177);

@@ -88,15 +88,11 @@ const Category = ({ category, color, mode, id }) => {
       {mode ? (
         <Edit
           className='editcategory__form__iconEdit'
-          size={25}
-          strokeWidth={1.7}
           onClick={() => handleSingleOrDoubleClick()}
         />
       ) : (
         <Trash
           className='editcategory__form__iconDelete'
-          size={25}
-          strokeWidth={1.7}
           onClick={() => handleSingleOrDoubleClick()}
         />
       )}
