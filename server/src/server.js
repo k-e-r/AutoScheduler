@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const cors = require('cors');
 require('./db/mongoose');
@@ -16,6 +17,7 @@ app.use(
 const PORT = process.env.PORT || 8000;
 
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../public')));
 app.use('/plans', plansRouter);
 app.use('/categories', categoriesRouter);
 app.use('/user', userRouter);

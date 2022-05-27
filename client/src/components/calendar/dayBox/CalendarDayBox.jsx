@@ -77,10 +77,7 @@ const CalendarDayBox = ({
       setTimeout(() => {
         setPlanDate();
         if (clickCount > 1) {
-          console.log('Double click');
           addPlan();
-        } else {
-          console.log('Single click');
         }
         clickCount = 0;
       }, 200);

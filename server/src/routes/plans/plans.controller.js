@@ -65,7 +65,6 @@ const searchPlan = (req, res) => {
       },
     },
     (err, data) => {
-      console.log(err, data);
       if (err) {
         return res.status(404).json({
           msg: 'plan not found',

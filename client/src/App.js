@@ -7,7 +7,6 @@ import EditCategory from './pages/editcategory/EditCategory';
 import PlanPopup from './pages/planpopup/PlanPopup';
 import AuthLogin from './pages/authentication/AuthLogin';
 import { authActions } from './store/auth-slice';
-import { useState } from 'react';
 
 const App = () => {
   const dispatch = useDispatch();

@@ -16,7 +16,7 @@ const Sidebar = ({ open, onSidebarClose }) => {
         }`}
       >
         <div>
-          <h1 className='sidebar__logo'>LOGO</h1>
+          <h1 className='sidebar__logo'>AutoScheduler</h1>
         </div>
         <div className='sidebar__wrapper'>
           <span className='sidebar__wrapper-title'>Dashboard</span>

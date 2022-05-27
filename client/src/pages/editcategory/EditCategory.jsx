@@ -20,10 +20,6 @@ function EditCategory() {
     );
   };
 
-  const testHandle = () => {
-    console.log('test~handle');
-  };
-
   return (
     <>
       <div className='editcategory__back' onClick={() => popupClose()} />

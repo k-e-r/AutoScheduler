@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import './AuthLogin.scss';
+import { Notebook } from 'tabler-icons-react';
 
 import useAuth from '../../hooks/useAuth';
 
@@ -16,7 +17,8 @@ const AuthLogin = () => {
     <div className='authlogin__wrapper'>
       <div className='authlogin__box'>
         <div className='authlogin__box__logo'>
-          <p className='authlogin__box__logo-p'>LOGO</p>
+          <Notebook className='authlogin__box__logo-icon' />
+          <p className='authlogin__box__logo-p'>AutoScheduler</p>
         </div>
         <div className='authlogin__box__welcome'>
           <p className='authlogin__box__welcome-p'>

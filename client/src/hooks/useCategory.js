@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { httpGetCategories, httpEditCategory } from './requestPlan';
+import { httpGetCategories, httpEditCategory } from './requestCategory';
 import { categoryListActions } from '../store/categoryList-slice';
 
 const useCategory = () => {

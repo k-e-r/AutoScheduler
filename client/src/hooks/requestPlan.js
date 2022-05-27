@@ -1,10 +1,4 @@
-const API_URL = 'http://localhost:8000';
-
-// Load categories and return as JSON.
-async function httpGetCategories() {
-  const response = await fetch(`${API_URL}/categories`);
-  return await response.json();
-}
+const API_URL = process.env['REACT_APP_API_URL'];
 
 // Load plans and return as JSON.
 async function httpGetPlans(userId, startDate, endDate) {
@@ -56,23 +50,6 @@ async function httpEditPlan(id, plan) {
   }
 }
 
-// Edit plan data
-async function httpEditCategory(id, category) {
-  try {
-    return await fetch(`${API_URL}/categories/${id}`, {
-      method: 'put',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(category),
-    });
-  } catch (err) {
-    return {
-      ok: false,
-    };
-  }
-}
-
 // Delete plan data
 async function httpDeletePlan(id) {
   try {
@@ -110,11 +87,9 @@ async function httpSearchDeletePlan(baseId, date) {
 }
 
 export {
-  httpGetCategories,
   httpGetPlans,
   httpSubmitPlan,
   httpEditPlan,
-  httpEditCategory,
   httpDeletePlan,
   httpSearchDeletePlan,
 };
