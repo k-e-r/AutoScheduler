@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import Home from './pages/home/Home';
 import Calendar from './pages/calendar/Calendar';
-import SetPlan from './pages/setplan/SetPlan';
-import EditPlan from './pages/editplan/EditPlan';
 import EditCategory from './pages/editcategory/EditCategory';
+import PlanPopup from './pages/planpopup/PlanPopup';
 
 const App = () => {
   const planSetFlg = useSelector((state) => state.planData.planSetFlg);
@@ -18,8 +16,7 @@ const App = () => {
     <>
       <Home />
       <Calendar />
-      {planSetFlg && <SetPlan />}
-      {planEditInfo && <EditPlan />}
+      {planSetFlg && <PlanPopup planInfo={planEditInfo} />}
       {categoryEditFlg && <EditCategory />}
     </>
   );

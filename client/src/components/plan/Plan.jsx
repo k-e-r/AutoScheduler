@@ -14,6 +14,7 @@ function Plan({ plan, idx }) {
 
   const editPlan = (plan) => {
     dispatch(planDataActions.editPlanInfo({ planEditInfo: plan }));
+    dispatch(planDataActions.setPlanFlg({ planSetFlg: true }));
   };
 
   const handleSingleOrDoubleClick = () => {
