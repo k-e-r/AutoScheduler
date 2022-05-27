@@ -7,6 +7,9 @@ import Category from '../../components/category/Category';
 
 function EditCategory() {
   const dispatch = useDispatch();
+  const categoryEditFlg = useSelector(
+    (state) => state.categoryList.categoryEditFlg
+  );
   const { editCategory } = useCategory();
   const categoryList = useSelector((state) => state.categoryList.categoryList);
   const categoryColorList = useSelector(
@@ -22,27 +25,31 @@ function EditCategory() {
 
   return (
     <>
-      <div className='editcategory__back' onClick={() => popupClose()} />
-      <div className='editcategory__card'>
-        <Category category='' color='' mode={true} id={_id} />
-        <form
-          onSubmit={editCategory}
-          autoComplete='off'
-          className='editcategory__form'
-        >
-          <input type='hidden' name='_id' value={_id} />
-          {categoryList.map((category, idx) => (
-            <Category
-              category={category}
-              color={categoryColorList[idx]}
-              id={_id}
-              mode={false}
-              key={idx}
-            />
-          ))}
-          <button type='submit'>Submit</button>
-        </form>
-      </div>
+      {categoryEditFlg && (
+        <>
+          <div className='editcategory__back' onClick={() => popupClose()} />
+          <div className='editcategory__card'>
+            <Category category='' color='' mode={true} id={_id} />
+            <form
+              onSubmit={editCategory}
+              autoComplete='off'
+              className='editcategory__form'
+            >
+              <input type='hidden' name='_id' value={_id} />
+              {categoryList.map((category, idx) => (
+                <Category
+                  category={category}
+                  color={categoryColorList[idx]}
+                  id={_id}
+                  mode={false}
+                  key={idx}
+                />
+              ))}
+              <button type='submit'>Submit</button>
+            </form>
+          </div>
+        </>
+      )}
     </>
   );
 }

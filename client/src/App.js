@@ -10,20 +10,10 @@ import { authActions } from './store/auth-slice';
 
 const App = () => {
   const dispatch = useDispatch();
-  const planSetFlg = useSelector((state) => state.planData.planSetFlg);
-  const planEditInfo = useSelector((state) => state.planData.planEditInfo);
-  const categoryEditFlg = useSelector(
-    (state) => state.categoryList.categoryEditFlg
-  );
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  // const [planEditInfo, setPlanEditInfo] = useState(statePlanEditInfo);
   useEffect(() => {
     dispatch(authActions.loginCheck());
   }, []);
-
-  // useEffect(() => {
-  //   setPlanEditInfo(statePlanEditInfo);
-  // }, [statePlanEditInfo]);
 
   return (
     <>
@@ -35,8 +25,8 @@ const App = () => {
         {isLoggedIn && <Route path='/' element={<Calendar />} />}
         {!isLoggedIn && <Route path='/' element={<AuthLogin />} />}
       </Routes>
-      {planSetFlg && <PlanPopup planInfo={planEditInfo} />}
-      {categoryEditFlg && <EditCategory />}
+      <PlanPopup />
+      <EditCategory />
     </>
   );
 };
