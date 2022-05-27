@@ -20,10 +20,6 @@ const App = () => {
     <>
       {isLoggedIn && <Home />}
       <Routes>
-        {isLoggedIn && <Route path='*' element={<Navigate replace to='/' />} />}
-        {!isLoggedIn && (
-          <Route path='*' element={<Navigate replace to='/' />} />
-        )}
         {isLoggedIn && <Route path='/' element={<Calendar />} />}
         {!isLoggedIn && <Route path='/' element={<AuthLogin />} />}
       </Routes>
