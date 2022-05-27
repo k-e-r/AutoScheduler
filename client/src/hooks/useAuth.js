@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import { httpLogin } from './requestAuth';
 
 import { authActions } from '../store/auth-slice';
@@ -17,7 +16,6 @@ const useAuth = () => {
       password,
     });
 
-    console.log('response', response.userId);
     if (response.userId !== undefined) {
       dispatch(
         authActions.login({

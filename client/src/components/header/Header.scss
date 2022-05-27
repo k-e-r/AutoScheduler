@@ -1,4 +1,5 @@
 .header {
+  margin-top: 0.5rem;
   height: 3.5rem;
   display: flex;
   align-items: center;
@@ -24,6 +25,9 @@
       .header__menubar {
         color: rgb(94, 53, 177);
         transition: all 0.3s ease-in-out;
+        width: 25px;
+        height: 25px;
+        stroke-width: 1.2;
       }
 
       &:hover {
@@ -40,28 +44,37 @@
     display: flex;
     align-items: center;
 
+    .header__user {
+      font-size: 0.9rem;
+      color: #5d5d5d;
+      margin-right: 1rem;
+    }
+
     button {
       display: flex;
       align-items: center;
       justify-content: center;
       border: none;
-      background-color: rgb(227, 242, 253);
+      background-color: rgb(251, 233, 231);
       cursor: pointer;
       border-radius: 30%;
       width: 35px;
       height: 35px;
       transition: all 0.3s ease-in-out;
 
-      .header__settings {
-        color: rgb(33, 150, 243);
+      .header__logout {
+        color: rgb(216, 67, 21);
         transition: all 0.3s ease-in-out;
+        width: 25px;
+        height: 25px;
+        stroke-width: 1.2;
       }
 
       &:hover {
-        background-color: rgb(33, 150, 243);
+        background-color: rgb(216, 67, 21);
 
-        .header__settings {
-          color: rgb(255, 255, 255);
+        .header__logout {
+          color: rgb(251, 233, 231);
         }
       }
     }

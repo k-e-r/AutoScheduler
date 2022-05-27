@@ -18,10 +18,10 @@ const App = () => {
     <>
       <Routes>
         {isLoggedIn && (
-          <Route path='*' element={<Navigate replace to='/calendar' />} />
+          <Route path='*' element={<Navigate replace to='calendar' />} />
         )}
         {!isLoggedIn && (
-          <Route path='*' element={<Navigate replace to='/login' />} />
+          <Route path='*' element={<Navigate replace to='login' />} />
         )}
         {isLoggedIn && <Route path='calendar' element={<Calendar />} />}
         {!isLoggedIn && <Route path='login' element={<AuthLogin />} />}
