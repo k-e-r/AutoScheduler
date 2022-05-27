@@ -5,6 +5,7 @@ require('./db/mongoose');
 
 const plansRouter = require('./routes/plans/plans.router');
 const categoriesRouter = require('./routes/categories/categories.router');
+const userRouter = require('./routes/user/user.router');
 
 const app = express();
 app.use(
@@ -17,6 +18,7 @@ const PORT = process.env.PORT || 8000;
 app.use(express.json());
 app.use('/plans', plansRouter);
 app.use('/categories', categoriesRouter);
+app.use('/user', userRouter);
 
 app
   .listen(PORT, () => {
