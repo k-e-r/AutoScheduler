@@ -14,23 +14,21 @@ const PlanPopup = ({ planInfo }) => {
   const statePlanDate = useSelector((state) => state.planData.planDate);
 
   // edit
-  const statePlanEditInfo = useSelector((state) => state.planData.planEditInfo);
-  const [mode, setMode] = useState(statePlanEditInfo.mode ? true : false);
-  const [comp, setComp] = useState(statePlanEditInfo.completed ? true : false);
+  // const statePlanEditInfo = useSelector((state) => state.planData.planEditInfo);
+  const [mode, setMode] = useState(planInfo === '' ? false : true);
+  const [comp, setComp] = useState(planInfo === '' ? false : true);
 
-  const baseId = statePlanEditInfo.baseId;
-  const prevMode = statePlanEditInfo.mode;
-  const _id = statePlanEditInfo._id;
+  const baseId = planInfo.baseId;
+  const prevMode = planInfo.mode;
+  const _id = planInfo._id;
   const theDay =
-    planInfo === ''
-      ? statePlanDate.split('T')[0]
-      : statePlanEditInfo.date.split('T')[0];
-  const desc = statePlanEditInfo.description;
-  const category = statePlanEditInfo.category;
+    planInfo === '' ? statePlanDate.split('T')[0] : planInfo.date.split('T')[0];
+  const desc = planInfo.description;
+  const category = planInfo.category;
 
   const popupClose = () => {
-    dispatch(planDataActions.editPlanInfo({ statePlanEditInfo: '' }));
     dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
+    dispatch(planDataActions.editPlanInfo({ planEditInfo: '' }));
   };
 
   const handleOnChange = (e) => {
