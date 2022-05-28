@@ -20,7 +20,9 @@ const setCategories = (req, res) => {
 };
 
 const getCategories = (req, res) => {
-  Category.find({})
+  const userId = req.params.id;
+
+  Category.find({ userId: userId })
     .then((category) => {
       res.status(200).json({
         msg: 'get category succeeded',

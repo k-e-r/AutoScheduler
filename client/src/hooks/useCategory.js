@@ -8,9 +8,10 @@ const useCategory = () => {
   const color = [
     ...useSelector((state) => state.categoryList.categoryColorList),
   ];
+  const userId = useSelector((state) => state.auth.userId);
 
   const getCategory = async () => {
-    const fetchedCategories = await httpGetCategories();
+    const fetchedCategories = await httpGetCategories(userId);
     dispatch(
       categoryListActions.setCategoryList(fetchedCategories.category[0])
     );

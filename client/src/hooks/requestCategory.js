@@ -1,8 +1,8 @@
 const API_URL = process.env['REACT_APP_API_URL'];
 
 // Load categories and return as JSON.
-async function httpGetCategories() {
-  const response = await fetch(`${API_URL}/categories`);
+async function httpGetCategories(userId) {
+  const response = await fetch(`${API_URL}/categories/${userId}`);
   return await response.json();
 }
 
