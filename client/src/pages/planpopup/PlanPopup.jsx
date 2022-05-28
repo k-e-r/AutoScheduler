@@ -30,6 +30,7 @@ const PlanPopup = ({ planInfo }) => {
 
   const popupClose = () => {
     dispatch(planDataActions.editPlanInfo({ statePlanEditInfo: '' }));
+    dispatch(planDataActions.setPlanFlg({ statePlanEditInfo: false }));
   };
 
   const handleOnChange = (e) => {
@@ -53,7 +54,7 @@ const PlanPopup = ({ planInfo }) => {
             type='date'
             id='plan-date'
             name='plan-date'
-            min={theDay}
+            min='2020-12-31'
             max='2040-12-31'
             defaultValue={theDay}
             required
