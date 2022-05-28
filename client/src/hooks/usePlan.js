@@ -73,7 +73,7 @@ const usePlan = () => {
     const description = data.get('description');
     const category = data.get('category');
     const mode = data.get('mode') === null ? false : true;
-    const completed = data.get('completed') === null ? false : true;
+    let completed = data.get('completed') === null ? false : true;
     const response = await httpSubmitPlan({
       userId,
       date,
@@ -91,6 +91,7 @@ const usePlan = () => {
     }
 
     if (mode) {
+      completed = false;
       repeatSetPlan({
         userId,
         fetchedPlans,
@@ -121,7 +122,7 @@ const usePlan = () => {
     const description = data.get('description');
     const category = data.get('category');
     const mode = data.get('mode') === null ? false : true;
-    const completed = data.get('completed') === null ? false : true;
+    let completed = data.get('completed') === null ? false : true;
     const response = await httpEditPlan(_id, {
       userId,
       date,
@@ -134,6 +135,7 @@ const usePlan = () => {
     if (prevMode && !mode) {
       await httpSearchDeletePlan(baseId, date);
     } else if (prevMode === false && mode) {
+      completed = false;
       repeatSetPlan({
         userId,
         data,

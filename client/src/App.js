@@ -11,6 +11,11 @@ import { authActions } from './store/auth-slice';
 
 const App = () => {
   const dispatch = useDispatch();
+  const planSetFlg = useSelector((state) => state.planData.planSetFlg);
+  const planEditInfo = useSelector((state) => state.planData.planEditInfo);
+  const categoryEditFlg = useSelector(
+    (state) => state.categoryList.categoryEditFlg
+  );
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   useEffect(() => {
     dispatch(authActions.loginCheck());
@@ -26,8 +31,8 @@ const App = () => {
           <Route path='/' element={<AuthLogin />} />
         )}
       </Routes>
-      <PlanPopup />
-      <EditCategory />
+      {planSetFlg && <PlanPopup planInfo={planEditInfo} />}
+      {categoryEditFlg && <EditCategory />}
     </>
   );
 };

@@ -6,10 +6,11 @@ import './PlanPopup.scss';
 
 import { planDataActions } from '../../store/planData-slice';
 import usePlan from '../../hooks/usePlan';
+import { useEffect } from 'react';
 
-const PlanPopup = () => {
+const PlanPopup = ({ planInfo }) => {
   const dispatch = useDispatch();
-  const planInfo = useSelector((state) => state.planData.planEditInfo);
+  // const planInfo = useSelector((state) => state.planData.planEditInfo);
   const planSetFlg = useSelector((state) => state.planData.planSetFlg);
   const { editPlan, submitPlan } = usePlan();
   const categoryList = useSelector((state) => state.categoryList.categoryList);
@@ -17,18 +18,30 @@ const PlanPopup = () => {
 
   // edit
   const statePlanEditInfo = useSelector((state) => state.planData.planEditInfo);
-  const [mode, setMode] = useState(statePlanEditInfo.mode ? true : false);
-  const [comp, setComp] = useState(statePlanEditInfo.completed ? true : false);
+  const [planEditInfo, setPlanEditInfo] = useState(statePlanEditInfo);
+  const [mode, setMode] = useState(
+    planEditInfo.mode ? planEditInfo.mode : false
+  );
+  const [comp, setComp] = useState(
+    planEditInfo.completed ? planEditInfo.completed : false
+  );
 
-  const baseId = statePlanEditInfo.baseId;
-  const prevMode = statePlanEditInfo.mode;
-  const _id = statePlanEditInfo._id;
+  console.log(planEditInfo);
+  console.log(statePlanDate, planEditInfo.date);
+
+  useEffect(() => {
+    setPlanEditInfo(statePlanEditInfo);
+  }, [statePlanEditInfo]);
+
+  const baseId = planEditInfo.baseId;
+  const prevMode = planEditInfo.mode;
+  const _id = planEditInfo._id;
   const theDay =
     planInfo === ''
-      ? statePlanDate.split('T')[0]
-      : statePlanEditInfo.date.split('T')[0];
-  const desc = statePlanEditInfo.description;
-  const category = statePlanEditInfo.category;
+      ? statePlanDate?.split('T')[0]
+      : planEditInfo?.date.split('T')[0];
+  const desc = planEditInfo.description;
+  const category = planEditInfo.category;
 
   const popupClose = () => {
     dispatch(planDataActions.editPlanInfo({ planEditInfo: '' }));
@@ -58,7 +71,7 @@ const PlanPopup = () => {
                 type='date'
                 id='plan-date'
                 name='plan-date'
-                min='2021-12-31'
+                min={theDay}
                 max='2040-12-31'
                 defaultValue={theDay}
                 required
