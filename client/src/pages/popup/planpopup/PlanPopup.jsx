@@ -4,8 +4,8 @@ import { Check, Repeat } from 'tabler-icons-react';
 
 import './PlanPopup.scss';
 
-import { planDataActions } from '../../store/planData-slice';
-import usePlan from '../../hooks/usePlan';
+import { planDataActions } from '../../../store/planData-slice';
+import usePlan from '../../../hooks/usePlan';
 
 const PlanPopup = ({ planInfo }) => {
   const dispatch = useDispatch();

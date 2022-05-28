@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { categoryListActions } from '../../store/categoryList-slice';
-import useCategory from '../../hooks/useCategory';
+import { categoryListActions } from '../../../store/categoryList-slice';
+import useCategory from '../../../hooks/useCategory';
 
 import './EditCategory.scss';
-import Category from '../../components/category/Category';
+import Category from '../../../components/category/Category';
 
 function EditCategory() {
   const dispatch = useDispatch();
