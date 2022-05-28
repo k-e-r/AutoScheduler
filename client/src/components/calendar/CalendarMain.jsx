@@ -72,21 +72,13 @@ const CalendarMain = () => {
     <div className='calendar__card'>
       <div className='calendar__header'>
         <button onClick={() => changePrevMonth()}>
-          <ChevronLeft
-            size={25}
-            strokeWidth={1.2}
-            className='calendar__chevron'
-          />
+          <ChevronLeft className='calendar__chevron' />
         </button>
         <div className='calendar__month' onClick={() => changeToday()}>
           {monthsStr[baseDate.getMonth()]} {baseDate.getFullYear()}
         </div>
         <button onClick={() => changeNextMonth()}>
-          <ChevronRight
-            size={25}
-            strokeWidth={1.2}
-            className='calendar__chevron'
-          />
+          <ChevronRight className='calendar__chevron' />
         </button>
       </div>
       <CalendarBody baseDate={baseDate} showMonth={showMonth} />

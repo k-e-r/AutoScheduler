@@ -21,11 +21,7 @@ const Sidebar = ({ open, onSidebarClose }) => {
         <div className='sidebar__wrapper'>
           <span className='sidebar__wrapper-title'>Dashboard</span>
           <a href='/dashboard' className='sidebar__wrapper-menu'>
-            <Dashboard
-              size={25}
-              strokeWidth={1.2}
-              className='sidebar__wrapper-menu-icon'
-            />
+            <Dashboard className='sidebar__wrapper-menu-icon' />
             <p>Dashboard</p>
           </a>
         </div>
@@ -33,11 +29,7 @@ const Sidebar = ({ open, onSidebarClose }) => {
         <div className='sidebar__wrapper'>
           <span className='sidebar__wrapper-title'>Calender</span>
           <a href='/calendar' className='sidebar__wrapper-menu'>
-            <CalendarEvent
-              size={25}
-              strokeWidth={1.2}
-              className='sidebar__wrapper-menu-icon'
-            />
+            <CalendarEvent className='sidebar__wrapper-menu-icon' />
             <p>Calender</p>
           </a>
         </div>

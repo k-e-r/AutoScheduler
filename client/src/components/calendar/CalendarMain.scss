@@ -29,6 +29,9 @@
       .calendar__chevron {
         color: rgb(255, 193, 7);
         transition: all 0.3s ease-in-out;
+        width: 25px;
+        height: 25px;
+        stroke-width: 1.2;
       }
 
       &:hover {
