@@ -30,7 +30,7 @@ const PlanPopup = ({ planInfo }) => {
 
   const popupClose = () => {
     dispatch(planDataActions.editPlanInfo({ statePlanEditInfo: '' }));
-    dispatch(planDataActions.setPlanFlg({ statePlanEditInfo: false }));
+    dispatch(planDataActions.setPlanFlg({ planSetFlg: false }));
   };
 
   const handleOnChange = (e) => {
