@@ -14,6 +14,7 @@ app.use(
     origin: [
       'https://polar-lowlands-18778.herokuapp.com/',
       'http://localhost:3000',
+      'http://localhost:8000',
     ],
   })
 );

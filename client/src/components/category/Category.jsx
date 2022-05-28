@@ -6,7 +6,7 @@ import useCategory from '../../hooks/useCategory';
 
 import './Category.scss';
 
-const Category = ({ category, color, mode, id }) => {
+const Category = ({ category, color, mode }) => {
   const refAddCategory = useRef();
   const refAddColor = useRef();
   const [sketchPickerColor, setSketchPickerColor] = useState(
@@ -26,12 +26,12 @@ const Category = ({ category, color, mode, id }) => {
     if (clickCount < 2) {
       setTimeout(() => {
         if (clickCount > 1) {
-          if (!mode) deleteCategory({ id, category });
+          if (!mode) deleteCategory({ category });
         } else {
           if (mode) {
             const categoryData = refAddCategory.current.value;
             const colorData = refAddColor.current.value;
-            addCategory({ id, categoryData, colorData });
+            addCategory({ categoryData, colorData });
             refAddCategory.current.value = '';
             setSketchPickerColor('#ef93b6');
           }

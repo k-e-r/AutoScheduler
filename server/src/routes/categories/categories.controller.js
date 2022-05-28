@@ -38,11 +38,11 @@ const getCategories = (req, res) => {
 };
 
 const editCategories = (req, res) => {
-  const categoryId = req.params.id;
+  const userId = req.params.id;
 
   try {
-    Category.findByIdAndUpdate(
-      categoryId,
+    Category.findOneAndUpdate(
+      { userId },
       {
         $set: req.body,
       },
@@ -69,10 +69,10 @@ const editCategories = (req, res) => {
 };
 
 const deleteCategory = (req, res) => {
-  const categoryId = req.params.id;
+  const userId = req.params.id;
 
   try {
-    Category.findByIdAndDelete(categoryId, (err, docs) => {
+    Category.findOneAndDelete({ userId }, (err, docs) => {
       if (err) {
         res.status(404).json({
           msg: 'category not found',

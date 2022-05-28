@@ -2,9 +2,11 @@ import { useDispatch } from 'react-redux';
 import { httpLogin, httpRegister } from './requestAuth';
 
 import { authActions } from '../store/auth-slice';
+import useCategory from './useCategory';
 
 const useAuth = () => {
   const dispatch = useDispatch();
+  const { setCategory } = useCategory();
 
   const authLogin = async (e) => {
     e.preventDefault();
@@ -45,6 +47,8 @@ const useAuth = () => {
           userEmail: response.email,
         })
       );
+
+      setCategory(response.userId);
     } else {
       alert(response.msg);
     }

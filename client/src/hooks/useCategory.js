@@ -1,6 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { httpGetCategories, httpEditCategory } from './requestCategory';
+import {
+  httpSetCategory,
+  httpGetCategories,
+  httpEditCategory,
+} from './requestCategory';
 import { categoryListActions } from '../store/categoryList-slice';
+
+const DEFAULT_CATEGORY = ['programming', 'English', 'Others'];
+const DEFAULT_COLOR = ['#6dc2ff', '#a5d8b9', '#8e7ae0'];
 
 const useCategory = () => {
   const dispatch = useDispatch();
@@ -9,6 +16,22 @@ const useCategory = () => {
     ...useSelector((state) => state.categoryList.categoryColorList),
   ];
   const userId = useSelector((state) => state.auth.userId);
+
+  const setCategory = async (userId) => {
+    const response = await httpSetCategory({
+      userId,
+      category: DEFAULT_CATEGORY,
+      color: DEFAULT_COLOR,
+    });
+
+    const success = response.ok;
+    if (success) {
+      const fetchedCategories = await httpGetCategories(userId);
+      dispatch(
+        categoryListActions.setCategoryList(fetchedCategories.category[0])
+      );
+    }
+  };
 
   const getCategory = async () => {
     const fetchedCategories = await httpGetCategories(userId);
@@ -20,22 +43,20 @@ const useCategory = () => {
   const editCategory = async (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    let id,
-      color = [],
+    let color = [],
       category = [];
     for (let d of data.entries()) {
-      if (d[0] === '_id') id = d[1];
-      else if (d[0] === 'category-color') color.push(d[1]);
+      if (d[0] === 'category-color') color.push(d[1]);
       else if (d[0] === 'category-List') category.push(d[1]);
     }
-    const response = await httpEditCategory(id, {
+    const response = await httpEditCategory(userId, {
       category,
       color,
     });
 
     const success = response.ok;
     if (success) {
-      const fetchedCategories = await httpGetCategories();
+      const fetchedCategories = await httpGetCategories(userId);
       dispatch(
         categoryListActions.setCategoryList(fetchedCategories.category[0])
       );
@@ -45,35 +66,35 @@ const useCategory = () => {
     );
   };
 
-  const addCategory = async ({ id, categoryData, colorData }) => {
+  const addCategory = async ({ categoryData, colorData }) => {
     category.push(categoryData);
     color.push(colorData);
-    const response = await httpEditCategory(id, {
+    const response = await httpEditCategory(userId, {
       category,
       color,
     });
 
     const success = response.ok;
     if (success) {
-      const fetchedCategories = await httpGetCategories();
+      const fetchedCategories = await httpGetCategories(userId);
       dispatch(
         categoryListActions.setCategoryList(fetchedCategories.category[0])
       );
     }
   };
 
-  const deleteCategory = async ({ id, delCategory }) => {
+  const deleteCategory = async ({ delCategory }) => {
     const delIdx = category.findIndex((el) => el === delCategory);
     category.splice(delIdx, 1);
     color.splice(delIdx, 1);
-    const response = await httpEditCategory(id, {
+    const response = await httpEditCategory(userId, {
       category,
       color,
     });
 
     const success = response.ok;
     if (success) {
-      const fetchedCategories = await httpGetCategories();
+      const fetchedCategories = await httpGetCategories(userId);
       dispatch(
         categoryListActions.setCategoryList(fetchedCategories.category[0])
       );
@@ -81,6 +102,7 @@ const useCategory = () => {
   };
 
   return {
+    setCategory,
     getCategory,
     editCategory,
     addCategory,

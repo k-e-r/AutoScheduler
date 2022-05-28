@@ -15,7 +15,6 @@ function EditCategory() {
   const categoryColorList = useSelector(
     (state) => state.categoryList.categoryColorList
   );
-  const _id = useSelector((state) => state.categoryList._id);
 
   const popupClose = () => {
     dispatch(
@@ -29,18 +28,16 @@ function EditCategory() {
         <>
           <div className='editcategory__back' onClick={() => popupClose()} />
           <div className='editcategory__card'>
-            <Category category='' color='' mode={true} id={_id} />
+            <Category category='' color='' mode={true} />
             <form
               onSubmit={editCategory}
               autoComplete='off'
               className='editcategory__form'
             >
-              <input type='hidden' name='_id' value={_id} />
               {categoryList.map((category, idx) => (
                 <Category
                   category={category}
                   color={categoryColorList[idx]}
-                  id={_id}
                   mode={false}
                   key={idx}
                 />
