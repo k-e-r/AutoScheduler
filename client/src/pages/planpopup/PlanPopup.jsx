@@ -17,12 +17,8 @@ const PlanPopup = () => {
 
   // edit
   const statePlanEditInfo = useSelector((state) => state.planData.planEditInfo);
-  const [mode, setMode] = useState(
-    statePlanEditInfo.mode ? statePlanEditInfo.mode : false
-  );
-  const [comp, setComp] = useState(
-    statePlanEditInfo.completed ? statePlanEditInfo.completed : false
-  );
+  const [mode, setMode] = useState(statePlanEditInfo.mode ? true : false);
+  const [comp, setComp] = useState(statePlanEditInfo.completed ? true : false);
 
   const baseId = statePlanEditInfo.baseId;
   const prevMode = statePlanEditInfo.mode;
