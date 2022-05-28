@@ -63,7 +63,6 @@ const CalendarDayBox = ({
       setDate = new Date(baseDate.getFullYear(), baseDate.getMonth(), day);
     }
     dispatch(planDataActions.setPlanDate({ planDate: setDate.toISOString() }));
-    dispatch(planDataActions.setPlanFlg({ planSetFlg: true }));
     changeColorIdx(idx);
   };
 
@@ -76,8 +75,8 @@ const CalendarDayBox = ({
 
     if (clickCount < 2) {
       setTimeout(() => {
+        setPlanDate();
         if (clickCount > 1) {
-          setPlanDate();
           addPlan();
         }
         clickCount = 0;
