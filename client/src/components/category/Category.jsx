@@ -1,20 +1,22 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Trash, Edit } from 'tabler-icons-react';
 
 import { SketchPicker } from 'react-color';
-import useCategory from '../../hooks/useCategory';
 
 import './Category.scss';
 
-const Category = ({ category, color, mode, addShowCategory, addShowColor }) => {
+const Category = ({ category, color, mode, addShowList, removeShowList }) => {
   const refAddCategory = useRef();
   const refAddColor = useRef();
   const [sketchPickerColor, setSketchPickerColor] = useState(
     color ? color : '#ef93b6'
   );
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const { deleteCategory } = useCategory();
   let clickCount = 0;
+
+  useEffect(() => {
+    setSketchPickerColor(color ? color : '#ef93b6');
+  }, [color]);
 
   const displayChange = () => {
     setDisplayColorPicker((prev) => !prev);
@@ -26,13 +28,14 @@ const Category = ({ category, color, mode, addShowCategory, addShowColor }) => {
     if (clickCount < 2) {
       setTimeout(() => {
         if (clickCount > 1) {
-          if (!mode) deleteCategory({ category });
+          if (!mode) {
+            removeShowList(category);
+          }
         } else {
           if (mode) {
             const categoryData = refAddCategory.current.value;
             const colorData = refAddColor.current.value;
-            addShowCategory(categoryData);
-            addShowColor(colorData);
+            addShowList(categoryData, colorData);
             refAddCategory.current.value = '';
             setSketchPickerColor('#ef93b6');
           }
@@ -66,7 +69,7 @@ const Category = ({ category, color, mode, addShowCategory, addShowColor }) => {
       )}
       <input
         type='hidden'
-        name={`category-color`}
+        name='category-color'
         value={sketchPickerColor}
         className='editcategory__form__input'
         ref={refAddColor}
@@ -79,7 +82,7 @@ const Category = ({ category, color, mode, addShowCategory, addShowColor }) => {
       <input
         type='text'
         id='category-List'
-        name={`category-List`}
+        name='category-List'
         defaultValue={category}
         className='editcategory__form__input'
         required

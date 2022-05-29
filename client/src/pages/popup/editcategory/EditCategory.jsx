@@ -19,12 +19,31 @@ function EditCategory() {
   );
   const [showColorList, setShowColorList] = useState(categoryColorList);
 
-  const changeCategoryList = (category) => {
-    setShowCategoryList((prev) => [...prev, category]);
+  const addShowList = (category, color) => {
+    const existingListIndex = categoryList.findIndex(
+      (categoryList) => categoryList === category
+    );
+    if (existingListIndex === -1) {
+      setShowCategoryList((prev) => [...prev, category]);
+    } else {
+      const chgColor = showColorList.slice();
+      chgColor.splice(existingListIndex, 1, color);
+      setShowColorList(chgColor);
+    }
   };
 
-  const changeColorList = (color) => {
-    setShowColorList((prev) => [...prev, color]);
+  const removeShowList = (category) => {
+    const existingListIndex = showCategoryList.findIndex(
+      (categoryList) => categoryList === category
+    );
+    if (existingListIndex !== -1) {
+      const chgCategory = showCategoryList.slice();
+      const chgColor = showColorList.slice();
+      chgCategory.splice(existingListIndex, 1);
+      chgColor.splice(existingListIndex, 1);
+      setShowCategoryList(chgCategory);
+      setShowColorList(chgColor);
+    }
   };
 
   const popupClose = () => {
@@ -43,8 +62,8 @@ function EditCategory() {
               category=''
               color=''
               mode={true}
-              addShowCategory={changeCategoryList}
-              addShowColor={changeColorList}
+              addShowList={addShowList}
+              removeShowList={removeShowList}
             />
             <form
               onSubmit={editCategory}
@@ -56,6 +75,8 @@ function EditCategory() {
                   category={category}
                   color={showColorList[idx]}
                   mode={false}
+                  addShowList={addShowList}
+                  removeShowList={removeShowList}
                   key={idx}
                 />
               ))}

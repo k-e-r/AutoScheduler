@@ -66,29 +66,10 @@ const useCategory = () => {
     );
   };
 
-  const deleteCategory = async ({ delCategory }) => {
-    const delIdx = category.findIndex((el) => el === delCategory);
-    category.splice(delIdx, 1);
-    color.splice(delIdx, 1);
-    const response = await httpEditCategory(userId, {
-      category,
-      color,
-    });
-
-    const success = response.ok;
-    if (success) {
-      const fetchedCategories = await httpGetCategories(userId);
-      dispatch(
-        categoryListActions.setCategoryList(fetchedCategories.category[0])
-      );
-    }
-  };
-
   return {
     setCategory,
     getCategory,
     editCategory,
-    deleteCategory,
   };
 };
 
