@@ -6,14 +6,14 @@ import useCategory from '../../hooks/useCategory';
 
 import './Category.scss';
 
-const Category = ({ category, color, mode }) => {
+const Category = ({ category, color, mode, addShowCategory, addShowColor }) => {
   const refAddCategory = useRef();
   const refAddColor = useRef();
   const [sketchPickerColor, setSketchPickerColor] = useState(
     color ? color : '#ef93b6'
   );
   const [displayColorPicker, setDisplayColorPicker] = useState(false);
-  const { addCategory, deleteCategory } = useCategory();
+  const { deleteCategory } = useCategory();
   let clickCount = 0;
 
   const displayChange = () => {
@@ -31,7 +31,8 @@ const Category = ({ category, color, mode }) => {
           if (mode) {
             const categoryData = refAddCategory.current.value;
             const colorData = refAddColor.current.value;
-            addCategory({ categoryData, colorData });
+            addShowCategory(categoryData);
+            addShowColor(colorData);
             refAddCategory.current.value = '';
             setSketchPickerColor('#ef93b6');
           }

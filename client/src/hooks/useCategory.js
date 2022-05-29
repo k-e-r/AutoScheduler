@@ -6,7 +6,7 @@ import {
 } from './requestCategory';
 import { categoryListActions } from '../store/categoryList-slice';
 
-const DEFAULT_CATEGORY = ['programming', 'English', 'Others'];
+const DEFAULT_CATEGORY = ['Programming', 'English', 'Others'];
 const DEFAULT_COLOR = ['#6dc2ff', '#a5d8b9', '#8e7ae0'];
 
 const useCategory = () => {
@@ -66,23 +66,6 @@ const useCategory = () => {
     );
   };
 
-  const addCategory = async ({ categoryData, colorData }) => {
-    category.push(categoryData);
-    color.push(colorData);
-    const response = await httpEditCategory(userId, {
-      category,
-      color,
-    });
-
-    const success = response.ok;
-    if (success) {
-      const fetchedCategories = await httpGetCategories(userId);
-      dispatch(
-        categoryListActions.setCategoryList(fetchedCategories.category[0])
-      );
-    }
-  };
-
   const deleteCategory = async ({ delCategory }) => {
     const delIdx = category.findIndex((el) => el === delCategory);
     category.splice(delIdx, 1);
@@ -105,7 +88,6 @@ const useCategory = () => {
     setCategory,
     getCategory,
     editCategory,
-    addCategory,
     deleteCategory,
   };
 };
