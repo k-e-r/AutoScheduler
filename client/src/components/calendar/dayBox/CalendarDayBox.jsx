@@ -17,7 +17,9 @@ const CalendarDayBox = ({
   const dispatch = useDispatch();
   let clickCount = 0;
 
-  const today = new Date().getDate();
+  const today = showMonth.findIndex(
+    (el, idx) => el === new Date().getDate() && idx >= el
+  );
   let markFlg = false;
 
   useEffect(() => {
@@ -93,7 +95,7 @@ const CalendarDayBox = ({
       <p
         className={`weekly__dateTitle ${
           Math.abs(day - idx) > 5 ? 'dayGrey ' : ''
-        } ${day === today && markFlg ? 'today' : ''}`}
+        } ${idx === today && markFlg ? 'today' : ''}`}
       >
         {day}
       </p>

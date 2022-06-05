@@ -62,7 +62,9 @@ const CalendarPlanBox = ({ baseDate, showMonth, idx }) => {
           ...prev,
           {
             _id: plan._id,
-            idx: showMonth.findIndex((el) => el === checkDay.getDate()),
+            idx: showMonth.findIndex(
+              (el, idx) => el === checkDay.getDate() && idx >= el
+            ),
             category: plan.category,
             desc: plan.description,
             completed: plan.completed,

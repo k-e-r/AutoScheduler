@@ -12,7 +12,7 @@ const app = express();
 app.use(
   cors({
     origin: [
-      'https://polar-lowlands-18778.herokuapp.com/',
+      'https://polar-lowlands-18778.herokuapp.com',
       'http://localhost:3000',
       'http://localhost:8000',
     ],
